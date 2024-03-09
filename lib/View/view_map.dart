@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:woosmap_flutter/woosmap_flutter.dart';
 
 class ViewMap extends StatefulWidget {
-  const ViewMap({Key? key}) : super(key: key);
+  const ViewMap({super.key});
 
   @override
   State<ViewMap> createState() => _ViewMapState();
