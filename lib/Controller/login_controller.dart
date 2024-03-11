@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:qiu_digital_guidance/View/home_page.dart';
 import 'package:qiu_digital_guidance/View/staff%20view/add_events.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 class LoginController extends ChangeNotifier {
   String email = '';
   String password = '';
@@ -16,6 +18,44 @@ class LoginController extends ChangeNotifier {
   void setPassword(String value) {
     password = value;
     notifyListeners();
+  }
+
+  static const String isLoggedInKey = 'isLoggedIn';
+
+  Future<void> saveLoginStatus(bool isLoggedIn, String role) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool(isLoggedInKey, isLoggedIn);
+    prefs.setString('userRole', role);
+  }
+
+  Future<Map<String, dynamic>> getLoginStatus() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isLoggedIn = prefs.getBool(isLoggedInKey) ?? false;
+    String userRole =
+        prefs.getString('userRole') ?? 'NormalUser'; // Default role
+    return {'isLoggedIn': isLoggedIn, 'userRole': userRole};
+  }
+
+  void autoLogin(BuildContext context) async {
+    Map<String, dynamic> loginStatus = await getLoginStatus();
+
+    if (loginStatus['isLoggedIn']) {
+      if (loginStatus['userRole'] == 'Staff') {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const AddEvents(),
+          ),
+        );
+      } else {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HomePage(),
+          ),
+        );
+      }
+    }
   }
 
   //function to login using email and password
@@ -44,6 +84,7 @@ class LoginController extends ChangeNotifier {
         );
       },
     );
+
     try {
       // Sign in with email and password
       await FirebaseAuth.instance
@@ -61,6 +102,8 @@ class LoginController extends ChangeNotifier {
             .get();
         if (staffDoc.exists) {
           String role = staffDoc['role'];
+
+          await saveLoginStatus(true, role);
 
           // Check if the user's role is 'staff'
           if (role == 'Staff') {
@@ -105,6 +148,8 @@ class LoginController extends ChangeNotifier {
 
   Future<void> signInAnonymously(BuildContext context) async {
     try {
+      String role = 'NormalUser';
+      await saveLoginStatus(true, role);
       await FirebaseAuth.instance.signInAnonymously();
       Navigator.push(
         context,

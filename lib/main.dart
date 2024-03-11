@@ -8,6 +8,7 @@ import 'package:qiu_digital_guidance/Controller/fetch_controller.dart';
 import 'package:qiu_digital_guidance/Controller/login_controller.dart';
 import 'package:qiu_digital_guidance/Controller/Staff_controllers/manage_events_controller.dart';
 import 'package:qiu_digital_guidance/Controller/logout_controller.dart';
+import 'package:qiu_digital_guidance/Controller/search_controller.dart';
 import 'package:qiu_digital_guidance/Controller/seat_controller.dart';
 import 'package:qiu_digital_guidance/View/login.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -54,6 +55,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => LogoutController(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => EventSearchController(),
         ),
       ],
       child: MaterialApp(

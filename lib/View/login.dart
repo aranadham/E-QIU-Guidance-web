@@ -14,6 +14,13 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   @override
+  void initState() {
+    LoginController login = LoginController();
+    login.autoLogin(context);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final controller = Provider.of<LoginController>(context);
     return Scaffold(
