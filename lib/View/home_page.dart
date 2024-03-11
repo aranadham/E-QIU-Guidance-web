@@ -4,21 +4,27 @@ import 'package:qiu_digital_guidance/Controller/logout_controller.dart';
 import 'package:qiu_digital_guidance/Controller/seat_controller.dart';
 import 'package:qiu_digital_guidance/View/view_calendar.dart';
 import 'package:qiu_digital_guidance/View/events.dart';
+import 'package:qiu_digital_guidance/View/view_map.dart';
 import 'package:qiu_digital_guidance/View/speakers.dart';
 import 'package:qiu_digital_guidance/Widgets/box.dart';
 
-class StudentHomePage extends StatelessWidget {
-  const StudentHomePage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final controller = Provider.of<SeatController>(context);
     final logoutcontroller = Provider.of<LogoutController>(context);
-
+    
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text("Electronic QIU Guidance"),
+        title: const Text("Guest"),
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 0, 106, 166),
         foregroundColor: Colors.white,
@@ -40,7 +46,18 @@ class StudentHomePage extends StatelessWidget {
             child: GridView.count(
               crossAxisCount: 2,
               children: [
-                const Box(icon: Icons.map, text: "Campus Map"),
+                Box(
+                  icon: Icons.map,
+                  text: "Campus Map",
+                  ontap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ViewMap(),
+                      ),
+                    );
+                  },
+                ),
                 Box(
                   icon: Icons.event,
                   text: "Events",

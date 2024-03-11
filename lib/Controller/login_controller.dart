@@ -3,10 +3,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:qiu_digital_guidance/View/guest_home.dart';
+import 'package:qiu_digital_guidance/View/home_page.dart';
 import 'package:qiu_digital_guidance/View/staff%20view/add_events.dart';
-import 'package:qiu_digital_guidance/View/student_home.dart';
-
 class LoginController extends ChangeNotifier {
   String email = '';
   String password = '';
@@ -80,7 +78,7 @@ class LoginController extends ChangeNotifier {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const StudentHomePage(),
+            builder: (context) => const HomePage(),
           ),
         );
       }
@@ -111,7 +109,7 @@ class LoginController extends ChangeNotifier {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => const GuestHomePage(),
+          builder: (context) => const HomePage(),
         ),
       );
     } catch (e) {
