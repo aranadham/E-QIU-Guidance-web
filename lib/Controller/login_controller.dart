@@ -10,7 +10,6 @@ import 'package:qiu_digital_guidance/View/student_home.dart';
 class LoginController extends ChangeNotifier {
   String email = '';
   String password = '';
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   void setEmail(String value) {
     email = value;
     notifyListeners();
@@ -21,28 +20,32 @@ class LoginController extends ChangeNotifier {
     notifyListeners();
   }
 
-  String? validateEmail(String? value) {
-    if (value == null || !value.contains('@')) {
-      return 'Enter a valid email address';
-    }
-    return null;
-  }
-
-  String? validatePassword(String? value) {
-    if (value == null ||
-        value.length < 6 ||
-        value.length > 10 ||
-        !value.contains(RegExp(r'[0-9]')) ||
-        !value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
-      return 'must be 6-10 also contain symbols and numbers';
-    }
-    return null;
-  }
-
   //function to login using email and password
   Future<void> login({
     required BuildContext context,
   }) async {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          content: Container(
+            padding: const EdgeInsets.all(16),
+            child: const Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CircularProgressIndicator(),
+                SizedBox(height: 16),
+                Text(
+                  "Logging in...",
+                  style: TextStyle(fontSize: 18),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
     try {
       // Sign in with email and password
       await FirebaseAuth.instance

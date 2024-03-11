@@ -5,8 +5,15 @@ import 'package:qiu_digital_guidance/Widgets/button.dart';
 import 'package:qiu_digital_guidance/Widgets/drawer.dart';
 import 'package:qiu_digital_guidance/Widgets/textfield.dart';
 
-class RegisterStaff extends StatelessWidget {
+class RegisterStaff extends StatefulWidget {
   const RegisterStaff({super.key});
+
+  @override
+  State<RegisterStaff> createState() => _RegisterStaffState();
+}
+
+class _RegisterStaffState extends State<RegisterStaff> {
+  final GlobalKey<FormState> registerStaffKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +29,7 @@ class RegisterStaff extends StatelessWidget {
       drawer: const StaffDrawer(),
       body: SingleChildScrollView(
         child: Form(
-          key: controller.registerStaffKey,
+          key: registerStaffKey,
           child: Column(
             children: [
               const SizedBox(
@@ -49,8 +56,7 @@ class RegisterStaff extends StatelessWidget {
               Btn(
                 text: "Register Staff",
                 onPressed: () {
-                  if (controller.registerStaffKey.currentState?.validate() ??
-                      false) {
+                  if (registerStaffKey.currentState?.validate() ?? false) {
                     controller.registerStaff(context);
                   }
                 },

@@ -6,8 +6,21 @@ import 'package:qiu_digital_guidance/Widgets/drawer.dart';
 import 'package:qiu_digital_guidance/Widgets/outlined_button.dart';
 import 'package:qiu_digital_guidance/Widgets/textfield.dart';
 
-class AddEvents extends StatelessWidget {
+class AddEvents extends StatefulWidget {
   const AddEvents({super.key});
+
+  @override
+  State<AddEvents> createState() => _AddEventsState();
+}
+
+class _AddEventsState extends State<AddEvents> {
+  final GlobalKey<FormState> addEventKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    addEventKey.currentState?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +36,7 @@ class AddEvents extends StatelessWidget {
       body: SingleChildScrollView(
         controller: controller.scrollController,
         child: Form(
-          key: controller.addEventKey,
+          key: addEventKey,
           child: Column(
             children: [
               const SizedBox(
@@ -200,8 +213,7 @@ class AddEvents extends StatelessWidget {
                 text: "Add Event",
                 fontsize: 18,
                 onPressed: () {
-                  if (controller.addEventKey.currentState?.validate() ??
-                      false) {
+                  if (addEventKey.currentState?.validate() ?? false) {
                     controller.addEvent(context);
                   }
                 },

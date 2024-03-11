@@ -20,7 +20,6 @@ class AddEventController extends ChangeNotifier {
   int availableSeats = 0;
   int reservedSeats = 0;
 
-  final GlobalKey<FormState> addEventKey = GlobalKey<FormState>();
   final ScrollController scrollController = ScrollController();
 
   void setTitle(String value) {

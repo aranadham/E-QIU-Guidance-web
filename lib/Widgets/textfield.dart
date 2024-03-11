@@ -10,6 +10,7 @@ class CustomTextField extends StatelessWidget {
   final String? Function(String?)? validator;
   final int? maxLength;
   final int? maxLine;
+  final ValueChanged<String>? onSubmitted;
 
   const CustomTextField({
     super.key,
@@ -22,6 +23,7 @@ class CustomTextField extends StatelessWidget {
     this.validator,
     this.maxLength,
     this.maxLine,
+    this.onSubmitted,
   });
 
   @override
@@ -38,6 +40,7 @@ class CustomTextField extends StatelessWidget {
         keyboardType: keyboard ?? TextInputType.text,
         obscureText: obscureText ?? false,
         cursorColor: const Color.fromARGB(255, 0, 174, 239),
+        onFieldSubmitted: onSubmitted,
         decoration: InputDecoration(
           hintText: hint,
           border: OutlineInputBorder(

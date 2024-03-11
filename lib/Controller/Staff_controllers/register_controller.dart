@@ -9,8 +9,6 @@ class Register extends ChangeNotifier {
   String email = "";
   String password = "";
 
-  final GlobalKey<FormState> registerStaffKey = GlobalKey<FormState>();
-  final GlobalKey<FormState> registerStudentKey = GlobalKey<FormState>();
 
   void setUserName(String value) {
     username = value;

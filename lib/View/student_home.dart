@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:qiu_digital_guidance/Controller/logout_controller.dart';
 import 'package:qiu_digital_guidance/Controller/seat_controller.dart';
 import 'package:qiu_digital_guidance/View/view_calendar.dart';
 import 'package:qiu_digital_guidance/View/events.dart';
@@ -12,6 +13,7 @@ class StudentHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Provider.of<SeatController>(context);
+    final logoutcontroller = Provider.of<LogoutController>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -20,6 +22,14 @@ class StudentHomePage extends StatelessWidget {
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 0, 106, 166),
         foregroundColor: Colors.white,
+        actions: [
+          IconButton(
+            onPressed: () {
+              logoutcontroller.logout(context);
+            },
+            icon: const Icon(Icons.logout),
+          ),
+        ],
       ),
       body: Column(
         children: [
