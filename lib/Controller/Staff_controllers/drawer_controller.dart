@@ -1,7 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:qiu_digital_guidance/Controller/logout_controller.dart';
-import 'package:qiu_digital_guidance/View/login.dart';
 import 'package:qiu_digital_guidance/View/staff%20view/add_events.dart';
 import 'package:qiu_digital_guidance/View/staff%20view/manage_events.dart';
 import 'package:qiu_digital_guidance/View/staff%20view/register_staff.dart';
