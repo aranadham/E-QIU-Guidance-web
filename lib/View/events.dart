@@ -1,18 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qiu_digital_guidance/Controller/fetch_controller.dart';
-import 'package:qiu_digital_guidance/Controller/search_controller.dart';
+import 'package:qiu_digital_guidance/Controller/event_search_controller.dart';
 import 'package:qiu_digital_guidance/Model/events.dart';
 import 'package:qiu_digital_guidance/View/view_event.dart';
+import 'package:qiu_digital_guidance/Widgets/search_field.dart';
 
-class Events extends StatelessWidget {
+class Events extends StatefulWidget {
   const Events({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final controller = Provider.of<FetchController>(context);
-    final search = Provider.of<EventSearchController>(context);
+  State<Events> createState() => _EventsState();
+}
 
+class _EventsState extends State<Events> {
+  late final FetchController controller;
+  late final EventSearchController search;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!controllerInitialized) {
+      controller = Provider.of<FetchController>(context);
+      search = Provider.of<EventSearchController>(context);
+      controllerInitialized = true;
+    }
+  }
+
+  bool controllerInitialized = false;
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Events"),
@@ -22,22 +40,11 @@ class Events extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-            child: TextField(
-              onChanged: (query) {
-                search.updateQuery(query);
-              },
-              decoration: InputDecoration(
-                labelText: 'Search by event name',
-                suffixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                contentPadding: const EdgeInsets.symmetric(vertical: 12,horizontal: 15),
-                isCollapsed: true,
-              ),
-            ),
+          SearchField(
+            label: "Search by event name",
+            onChanged: (query) {
+              search.updateQuery(query);
+            },
           ),
           Expanded(
             child: StreamBuilder(
@@ -106,5 +113,11 @@ class Events extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    search.query = "";
   }
 }
