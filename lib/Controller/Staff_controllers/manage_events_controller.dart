@@ -1,41 +1,9 @@
 // ignore_for_file: use_build_context_synchronously, avoid_print
 
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:qiu_digital_guidance/Model/events.dart';
-
 class ManageEventsController extends ChangeNotifier {
-  Stream<List<Event>> fetchEvents() {
-    return FirebaseFirestore.instance
-        .collection("Events")
-        .snapshots()
-        .map((QuerySnapshot querySnapshot) {
-      return querySnapshot.docs.map((doc) {
-        String documentId = doc.id;
-        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-        return Event.fromMap(documentId, data);
-      }).toList();
-    });
-  }
-
-  String formatDateTime(Timestamp timestamp) {
-    DateTime dateTime = timestamp.toDate();
-    return DateFormat("dd/MM/yyyy HH:mm").format(dateTime);
-  }
-
-  String formatDate(Timestamp timestamp) {
-    DateTime dateTime = timestamp.toDate();
-    return DateFormat("dd/MM/yyyy").format(dateTime);
-  }
-
-  String formatTime(Timestamp timestamp) {
-    DateTime dateTime = timestamp.toDate();
-    return DateFormat("HH:mm").format(dateTime);
-  }
-
   Future<void> deleteEvent({
     required BuildContext context,
     required String documentId,

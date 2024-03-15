@@ -55,7 +55,7 @@ class _EventsState extends State<Events> {
                 }
 
                 if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
+                  return const Text('No data');
                 }
 
                 List<Event> events = snapshot.data ?? [];

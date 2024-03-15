@@ -8,7 +8,6 @@ import 'package:qiu_digital_guidance/Model/events.dart';
 import 'package:qiu_digital_guidance/Model/speaker.dart';
 
 class FetchController extends ChangeNotifier {
-
   Stream<List<Event>> fetchEvents() {
     User? user = FirebaseAuth.instance.currentUser;
 
@@ -16,6 +15,7 @@ class FetchController extends ChangeNotifier {
       return FirebaseFirestore.instance
           .collection("Events")
           .where('visibility', isEqualTo: 'Public')
+          .orderBy("title")
           .snapshots()
           .map(
         (QuerySnapshot querySnapshot) {
@@ -29,7 +29,11 @@ class FetchController extends ChangeNotifier {
         },
       );
     } else {
-      return FirebaseFirestore.instance.collection("Events").snapshots().map(
+      return FirebaseFirestore.instance
+          .collection("Events")
+          .orderBy("title")
+          .snapshots()
+          .map(
         (QuerySnapshot querySnapshot) {
           return querySnapshot.docs.map(
             (doc) {

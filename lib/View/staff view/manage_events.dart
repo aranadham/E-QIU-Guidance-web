@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qiu_digital_guidance/Controller/Staff_controllers/manage_events_controller.dart';
+import 'package:qiu_digital_guidance/Controller/fetch_controller.dart';
 import 'package:qiu_digital_guidance/Model/events.dart';
 import 'package:qiu_digital_guidance/View/staff%20view/view_event.dart';
 import 'package:qiu_digital_guidance/Widgets/drawer.dart';
@@ -11,7 +12,7 @@ class ManageEvents extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Provider.of<ManageEventsController>(context);
-
+    final fetch = Provider.of<FetchController>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Manage Events"),
@@ -21,14 +22,14 @@ class ManageEvents extends StatelessWidget {
       ),
       drawer: const StaffDrawer(),
       body: StreamBuilder(
-        stream: controller.fetchEvents(),
+        stream: fetch.fetchEvents(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const CircularProgressIndicator();
           }
 
           if (snapshot.hasError) {
-            return Text('Error: ${snapshot.error}');
+            return const Text('No data');
           }
 
           List<Event> events = snapshot.data ?? [];
@@ -37,7 +38,7 @@ class ManageEvents extends StatelessWidget {
             itemCount: events.length,
             itemBuilder: (context, index) {
               Event event = events[index];
-              String startDate = controller.formatDateTime(event.startdate);
+              String startDate = fetch.formatDateTime(event.startdate);
               return InkWell(
                 onTap: () {
                   Navigator.push(
