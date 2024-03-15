@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:qiu_digital_guidance/Controller/Staff_controllers/edit_event_controller.dart';
 import 'package:qiu_digital_guidance/Controller/Staff_controllers/manage_events_controller.dart';
 import 'package:qiu_digital_guidance/Controller/fetch_controller.dart';
 import 'package:qiu_digital_guidance/Model/events.dart';
@@ -12,6 +13,7 @@ class ManageEvents extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Provider.of<ManageEventsController>(context);
+    final edit = Provider.of<EditEventsController>(context);
     final fetch = Provider.of<FetchController>(context);
     return Scaffold(
       appBar: AppBar(
@@ -59,64 +61,88 @@ class ManageEvents extends StatelessWidget {
                       Text(event.venue),
                     ],
                   ),
-                  trailing: IconButton(
-                    icon: const Icon(
-                      Icons.delete,
-                      color: Colors.red,
-                    ),
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: const Text('Confirm'),
-                            content: Text(
-                                'Are you sure you want to delete ${event.title}'),
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: const Text(
-                                  'Cancel',
-                                  style: TextStyle(color: Colors.grey),
-                                ),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                  controller.deleteEvent(
-                                      context: context,
-                                      documentId: event.id);
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: const Text('Success'),
-                                        content:
-                                            const Text('Event deleted'),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                            child: const Text('OK'),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
-                                },
-                                child: const Text(
-                                  'Delete',
-                                  style: TextStyle(color: Colors.red),
-                                ),
-                              ),
-                            ],
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: const Icon(
+                          Icons.edit,
+                          color: Colors.blue,
+                        ),
+                        onPressed: () {
+                          edit.navigateToEdit(
+                            context: context,
+                            id: event.id,
+                            title: event.title,
+                            description: event.description,
+                            type: event.type,
+                            radio: event.visibility,
+                            venue: event.venue,
+                            startDateTime: event.toDateTimeObject(),
+                            endDateTime: event.toDateTimeObject1(),
                           );
                         },
-                      );
-                    },
+                      ),
+                      IconButton(
+                        icon: const Icon(
+                          Icons.delete,
+                          color: Colors.red,
+                        ),
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: const Text('Confirm'),
+                                content: Text(
+                                    'Are you sure you want to delete ${event.title}'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text(
+                                      'Cancel',
+                                      style: TextStyle(color: Colors.grey),
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                      controller.deleteEvent(
+                                          context: context,
+                                          documentId: event.id);
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            title: const Text('Success'),
+                                            content:
+                                                const Text('Event deleted'),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: const Text('OK'),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
+                                    },
+                                    child: const Text(
+                                      'Delete',
+                                      style: TextStyle(color: Colors.red),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    ],
                   ),
                 ),
               );

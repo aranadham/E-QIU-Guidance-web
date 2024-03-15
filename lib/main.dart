@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qiu_digital_guidance/Controller/Staff_controllers/add_events_controller.dart';
 import 'package:qiu_digital_guidance/Controller/Staff_controllers/drawer_controller.dart';
+import 'package:qiu_digital_guidance/Controller/Staff_controllers/edit_event_controller.dart';
 import 'package:qiu_digital_guidance/Controller/Staff_controllers/register_controller.dart';
 import 'package:qiu_digital_guidance/Controller/calendar_controller.dart';
 import 'package:qiu_digital_guidance/Controller/fetch_controller.dart';
@@ -41,6 +42,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => ManageEventsController(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => EditEventsController(),
         ),
         ChangeNotifierProvider(
           create: (_) => FetchController(),
