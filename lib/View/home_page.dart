@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final controller = Provider.of<SeatController>(context);
     final logoutcontroller = Provider.of<LogoutController>(context);
-    
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -37,74 +37,82 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          const SizedBox(
-            height: 30,
-          ),
-          Expanded(
-            child: GridView.count(
-              crossAxisCount: 2,
-              children: [
-                Box(
-                  icon: Icons.map,
-                  text: "Campus Map",
-                  ontap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ViewMap(),
-                      ),
-                    );
-                  },
-                ),
-                Box(
-                  icon: Icons.event,
-                  text: "Events",
-                  ontap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const Events(),
-                      ),
-                    );
-                  },
-                ),
-                Box(
-                  icon: Icons.person,
-                  text: "Speakers",
-                  ontap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const Speakers(),
-                      ),
-                    );
-                  },
-                ),
-                Box(
-                  icon: Icons.chair,
-                  text: "Seat",
-                  ontap: () {
-                    controller.navigateToSeats(context);
-                  },
-                ),
-                Box(
-                  icon: Icons.calendar_today,
-                  text: "Calendar",
-                  ontap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ViewCalendar(),
-                      ),
-                    );
-                  },
-                ),
-              ],
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: NetworkImage(
+                  "https://firebasestorage.googleapis.com/v0/b/electronic-qiu-guidance-system.appspot.com/o/uni2.jpg?alt=media&token=c10a881d-09c8-4071-a819-c6920080e5a5"),
+              fit: BoxFit.cover),
+        ),
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 30,
             ),
-          ),
-        ],
+            Expanded(
+              child: GridView.count(
+                crossAxisCount: 2,
+                children: [
+                  Box(
+                    icon: Icons.map,
+                    text: "Campus Map",
+                    ontap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ViewMap(),
+                        ),
+                      );
+                    },
+                  ),
+                  Box(
+                    icon: Icons.event,
+                    text: "Events",
+                    ontap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Events(),
+                        ),
+                      );
+                    },
+                  ),
+                  Box(
+                    icon: Icons.person,
+                    text: "Speakers",
+                    ontap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Speakers(),
+                        ),
+                      );
+                    },
+                  ),
+                  Box(
+                    icon: Icons.chair,
+                    text: "Seat",
+                    ontap: () {
+                      controller.navigateToSeats(context);
+                    },
+                  ),
+                  Box(
+                    icon: Icons.calendar_today,
+                    text: "Calendar",
+                    ontap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ViewCalendar(),
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

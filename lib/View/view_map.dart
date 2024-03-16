@@ -20,7 +20,7 @@ class _ViewMapState extends State<ViewMap> {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
+          children:[
             Expanded(
               child: Align(
                 alignment: const AlignmentDirectional(-1, -1),

@@ -20,6 +20,8 @@ class LoginController extends ChangeNotifier {
     notifyListeners();
   }
 
+
+
   static const String isLoggedInKey = 'isLoggedIn';
 
   Future<void> saveLoginStatus(bool isLoggedIn, String role) async {
@@ -102,7 +104,6 @@ class LoginController extends ChangeNotifier {
             .get();
         if (staffDoc.exists) {
           String role = staffDoc['role'];
-
           await saveLoginStatus(true, role);
 
           // Check if the user's role is 'staff'
@@ -116,6 +117,8 @@ class LoginController extends ChangeNotifier {
             return;
           }
         }
+
+        await saveLoginStatus(true, "Student");
 
         // If the user is not a staff member, navigate to the default home page
         Navigator.pushReplacement(
@@ -148,7 +151,7 @@ class LoginController extends ChangeNotifier {
 
   Future<void> signInAnonymously(BuildContext context) async {
     try {
-      String role = 'NormalUser';
+      String role = 'Guest';
       await saveLoginStatus(true, role);
       await FirebaseAuth.instance.signInAnonymously();
       Navigator.push(

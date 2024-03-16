@@ -19,23 +19,22 @@ class Box extends StatelessWidget {
         onTap: ontap,
         child: Container(
           decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 136, 137, 141),
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                width: 1,
-                color: Colors.black,
-              ),
-              boxShadow: const [
-                BoxShadow(
-                  blurRadius: 11,
-                  color: Colors.grey,
-                )
-              ]),
+            // color: const Color.fromARGB(255, 136, 137, 141),
+            color: Colors.white70,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              width: 1,
+              color: Colors.black54,
+            ),
+          ),
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: [Icon(icon), Text(text)],
+              children: [
+                Icon(icon),
+                Text(text),
+              ],
             ),
           ),
         ),
