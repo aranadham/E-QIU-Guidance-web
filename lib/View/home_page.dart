@@ -40,9 +40,7 @@ class _HomePageState extends State<HomePage> {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-              image: NetworkImage(
-                  "https://firebasestorage.googleapis.com/v0/b/electronic-qiu-guidance-system.appspot.com/o/uni2.jpg?alt=media&token=c10a881d-09c8-4071-a819-c6920080e5a5"),
-              fit: BoxFit.cover),
+              image: AssetImage("assets/uni2.jpg"), fit: BoxFit.cover),
         ),
         child: Column(
           children: [
