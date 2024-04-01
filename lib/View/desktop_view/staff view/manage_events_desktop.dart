@@ -1,14 +1,15 @@
+import 'package:e_qiu_guidance/Widgets/desktop_widgets/navbar.dart';
+import 'package:e_qiu_guidance/mycolors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:e_qiu_guidance/Controller/Staff_controllers/edit_event_controller.dart';
 import 'package:e_qiu_guidance/Controller/Staff_controllers/manage_events_controller.dart';
 import 'package:e_qiu_guidance/Controller/fetch_controller.dart';
 import 'package:e_qiu_guidance/Model/events.dart';
-import 'package:e_qiu_guidance/View/staff%20view/view_event.dart';
-import 'package:e_qiu_guidance/Widgets/drawer.dart';
+import 'package:e_qiu_guidance/View/mobile_view/staff%20view/view_event.dart';
 
-class ManageEvents extends StatelessWidget {
-  const ManageEvents({super.key});
+class ManageEventsDesktop extends StatelessWidget {
+  const ManageEventsDesktop({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,17 +18,14 @@ class ManageEvents extends StatelessWidget {
     final fetch = Provider.of<FetchController>(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Manage Events"),
-        centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 0, 106, 166),
-        foregroundColor: Colors.white,
+        title: NavBar(),
+        backgroundColor: blue,
       ),
-      drawer: const StaffDrawer(),
       body: StreamBuilder(
         stream: fetch.fetchEvents(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator();
+            return const Center(child: CircularProgressIndicator());
           }
 
           if (snapshot.hasError) {

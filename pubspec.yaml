@@ -45,6 +45,7 @@ dependencies:
   latlong2: ^0.9.0
   woosmap_flutter: ^1.2.1
   shared_preferences: ^2.2.2
+  webview_flutter: ^4.5.0
 
 dev_dependencies:
   flutter_test:

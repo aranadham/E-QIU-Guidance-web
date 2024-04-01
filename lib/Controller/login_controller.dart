@@ -1,10 +1,13 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_qiu_guidance/View/desktop_view/home_page_desktop.dart';
+import 'package:e_qiu_guidance/View/desktop_view/staff%20view/add_event_desktop.dart';
+import 'package:e_qiu_guidance/responsive/responsive_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:e_qiu_guidance/View/home_page.dart';
-import 'package:e_qiu_guidance/View/staff%20view/add_events.dart';
+import 'package:e_qiu_guidance/View/mobile_view/home_page.dart';
+import 'package:e_qiu_guidance/View/mobile_view/staff%20view/add_events.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginController extends ChangeNotifier {
@@ -19,8 +22,6 @@ class LoginController extends ChangeNotifier {
     password = value;
     notifyListeners();
   }
-
-
 
   static const String isLoggedInKey = 'isLoggedIn';
 
@@ -46,14 +47,20 @@ class LoginController extends ChangeNotifier {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const AddEvents(),
+            builder: (context) => const ResponsiveLayout(
+              mobileBody: AddEvents(),
+              desktopBody: AddEventsDesktop(),
+            ),
           ),
         );
       } else {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const HomePage(),
+            builder: (context) => const ResponsiveLayout(
+              mobileBody: HomePage(),
+              desktopBody: HomePageDesktop(),
+            ),
           ),
         );
       }
@@ -111,7 +118,10 @@ class LoginController extends ChangeNotifier {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => const AddEvents(),
+                builder: (context) => const ResponsiveLayout(
+                  mobileBody: AddEvents(),
+                  desktopBody: AddEventsDesktop(),
+                ),
               ),
             );
             return;
@@ -124,7 +134,10 @@ class LoginController extends ChangeNotifier {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const HomePage(),
+            builder: (context) => const ResponsiveLayout(
+              mobileBody: HomePage(),
+              desktopBody: HomePageDesktop(),
+            ),
           ),
         );
       }
@@ -157,7 +170,10 @@ class LoginController extends ChangeNotifier {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => const HomePage(),
+          builder: (context) => const ResponsiveLayout(
+            mobileBody: HomePage(),
+            desktopBody: HomePageDesktop(),
+          ),
         ),
       );
     } catch (e) {

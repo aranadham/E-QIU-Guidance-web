@@ -1,3 +1,5 @@
+import 'package:e_qiu_guidance/View/desktop_view/login_desktop.dart';
+import 'package:e_qiu_guidance/responsive/responsive_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:e_qiu_guidance/Controller/Staff_controllers/add_events_controller.dart';
@@ -12,7 +14,7 @@ import 'package:e_qiu_guidance/Controller/logout_controller.dart';
 import 'package:e_qiu_guidance/Controller/event_search_controller.dart';
 import 'package:e_qiu_guidance/Controller/seat_controller.dart';
 import 'package:e_qiu_guidance/Controller/speaker_search_controller.dart';
-import 'package:e_qiu_guidance/View/login.dart';
+import 'package:e_qiu_guidance/View/mobile_view/login.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -31,42 +33,18 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (_) => LoginController(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => StaffDrawerController(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => AddEventController(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => ManageEventsController(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => EditEventsController(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => FetchController(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => Register(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => SeatController(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => CalendarController(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => LogoutController(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => EventSearchController(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => SpeakerSearchController(),
-        ),
+        ChangeNotifierProvider(create: (_) => LoginController()),
+        ChangeNotifierProvider(create: (_) => StaffDrawerController()),
+        ChangeNotifierProvider(create: (_) => AddEventController()),
+        ChangeNotifierProvider(create: (_) => ManageEventsController()),
+        ChangeNotifierProvider(create: (_) => EditEventsController()),
+        ChangeNotifierProvider(create: (_) => FetchController()),
+        ChangeNotifierProvider(create: (_) => Register()),
+        ChangeNotifierProvider(create: (_) => SeatController()),
+        ChangeNotifierProvider(create: (_) => CalendarController()),
+        ChangeNotifierProvider(create: (_) => LogoutController()),
+        ChangeNotifierProvider(create: (_) => EventSearchController()),
+        ChangeNotifierProvider(create: (_) => SpeakerSearchController()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -75,7 +53,10 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
           useMaterial3: true,
         ),
-        home: const Login(),
+        home: const ResponsiveLayout(
+          desktopBody: LoginDesktop(),
+          mobileBody: Login(),
+        ),
       ),
     );
   }

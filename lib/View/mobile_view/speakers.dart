@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:e_qiu_guidance/Controller/fetch_controller.dart';
 import 'package:e_qiu_guidance/Controller/speaker_search_controller.dart';
 import 'package:e_qiu_guidance/Model/speaker.dart';
-import 'package:e_qiu_guidance/View/view_speaker.dart';
-import 'package:e_qiu_guidance/Widgets/search_field.dart';
+import 'package:e_qiu_guidance/View/mobile_view/view_speaker.dart';
+import 'package:e_qiu_guidance/Widgets/mobile_widgets/search_field.dart';
 
 class Speakers extends StatelessWidget {
   const Speakers({super.key});

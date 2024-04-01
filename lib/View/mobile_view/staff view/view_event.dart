@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:e_qiu_guidance/Controller/fetch_controller.dart';
 import 'package:e_qiu_guidance/Model/events.dart';
 import 'package:e_qiu_guidance/Model/speaker.dart';
-import 'package:e_qiu_guidance/Widgets/tile_text.dart';
+import 'package:e_qiu_guidance/Widgets/mobile_widgets/tile_text.dart';
 
 class ViewEvent extends StatelessWidget {
   final String id;

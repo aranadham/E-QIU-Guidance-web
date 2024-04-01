@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:e_qiu_guidance/Controller/logout_controller.dart';
 import 'package:e_qiu_guidance/Controller/seat_controller.dart';
-import 'package:e_qiu_guidance/View/view_calendar.dart';
-import 'package:e_qiu_guidance/View/events.dart';
-import 'package:e_qiu_guidance/View/view_map.dart';
-import 'package:e_qiu_guidance/View/speakers.dart';
-import 'package:e_qiu_guidance/Widgets/box.dart';
+import 'package:e_qiu_guidance/View/mobile_view/view_calendar.dart';
+import 'package:e_qiu_guidance/View/mobile_view/events.dart';
+import 'package:e_qiu_guidance/View/mobile_view/view_map.dart';
+import 'package:e_qiu_guidance/View/mobile_view/speakers.dart';
+import 'package:e_qiu_guidance/Widgets/mobile_widgets/box.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HomePageDesktop extends StatefulWidget {
+  const HomePageDesktop({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomePageDesktop> createState() => _HomePageDesktopState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageDesktopState extends State<HomePageDesktop> {
   @override
   Widget build(BuildContext context) {
     final controller = Provider.of<SeatController>(context);
@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
             ),
             Expanded(
               child: GridView.count(
-                crossAxisCount: 2,
+                crossAxisCount: 4,
                 children: [
                   Box(
                     icon: Icons.map,

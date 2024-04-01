@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:e_qiu_guidance/Controller/event_search_controller.dart';
 import 'package:e_qiu_guidance/Controller/fetch_controller.dart';
 import 'package:e_qiu_guidance/Model/events.dart';
-import 'package:e_qiu_guidance/View/view_seat.dart';
-import 'package:e_qiu_guidance/Widgets/search_field.dart';
+import 'package:e_qiu_guidance/View/mobile_view/view_seat.dart';
+import 'package:e_qiu_guidance/Widgets/mobile_widgets/search_field.dart';
 
 class Seats extends StatelessWidget {
   final String userId;

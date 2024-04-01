@@ -1,9 +1,11 @@
 import 'package:e_qiu_guidance/Controller/logout_controller.dart';
-import 'package:e_qiu_guidance/View/staff%20view/add_events.dart';
+import 'package:e_qiu_guidance/View/desktop_view/staff%20view/add_event_desktop.dart';
+import 'package:e_qiu_guidance/View/mobile_view/staff%20view/add_events.dart';
+import 'package:e_qiu_guidance/responsive/responsive_layout.dart';
 import 'package:flutter/material.dart';
-import 'package:e_qiu_guidance/View/staff%20view/manage_events.dart';
-import 'package:e_qiu_guidance/View/staff%20view/register_staff.dart';
-import 'package:e_qiu_guidance/View/staff%20view/register_student.dart';
+import 'package:e_qiu_guidance/View/mobile_view/staff%20view/manage_events.dart';
+import 'package:e_qiu_guidance/View/mobile_view/staff%20view/register_staff.dart';
+import 'package:e_qiu_guidance/View/mobile_view/staff%20view/register_student.dart';
 
 class StaffDrawerController extends ChangeNotifier {
   int _selectedIndex = 0;
@@ -21,7 +23,10 @@ class StaffDrawerController extends ChangeNotifier {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => const AddEvents(),
+              builder: (context) => const ResponsiveLayout(
+                mobileBody: AddEvents(),
+                desktopBody: AddEventsDesktop(),
+              ),
             ),
           );
           break;
