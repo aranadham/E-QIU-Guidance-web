@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:qiu_digital_guidance/Controller/fetch_controller.dart';
-import 'package:qiu_digital_guidance/Controller/event_search_controller.dart';
-import 'package:qiu_digital_guidance/Model/events.dart';
-import 'package:qiu_digital_guidance/View/view_event.dart';
-import 'package:qiu_digital_guidance/Widgets/search_field.dart';
+import 'package:e_qiu_guidance/Controller/fetch_controller.dart';
+import 'package:e_qiu_guidance/Controller/event_search_controller.dart';
+import 'package:e_qiu_guidance/Model/events.dart';
+import 'package:e_qiu_guidance/View/view_event.dart';
+import 'package:e_qiu_guidance/Widgets/search_field.dart';
 
 class Events extends StatefulWidget {
   const Events({super.key});

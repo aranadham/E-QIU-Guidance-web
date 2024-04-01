@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:qiu_digital_guidance/Controller/logout_controller.dart';
-import 'package:qiu_digital_guidance/Controller/seat_controller.dart';
-import 'package:qiu_digital_guidance/View/view_calendar.dart';
-import 'package:qiu_digital_guidance/View/events.dart';
-import 'package:qiu_digital_guidance/View/view_map.dart';
-import 'package:qiu_digital_guidance/View/speakers.dart';
-import 'package:qiu_digital_guidance/Widgets/box.dart';
+import 'package:e_qiu_guidance/Controller/logout_controller.dart';
+import 'package:e_qiu_guidance/Controller/seat_controller.dart';
+import 'package:e_qiu_guidance/View/view_calendar.dart';
+import 'package:e_qiu_guidance/View/events.dart';
+import 'package:e_qiu_guidance/View/view_map.dart';
+import 'package:e_qiu_guidance/View/speakers.dart';
+import 'package:e_qiu_guidance/Widgets/box.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

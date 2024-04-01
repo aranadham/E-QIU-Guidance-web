@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:qiu_digital_guidance/Controller/Staff_controllers/edit_event_controller.dart';
-import 'package:qiu_digital_guidance/Controller/Staff_controllers/manage_events_controller.dart';
-import 'package:qiu_digital_guidance/Controller/fetch_controller.dart';
-import 'package:qiu_digital_guidance/Model/events.dart';
-import 'package:qiu_digital_guidance/View/staff%20view/view_event.dart';
-import 'package:qiu_digital_guidance/Widgets/drawer.dart';
+import 'package:e_qiu_guidance/Controller/Staff_controllers/edit_event_controller.dart';
+import 'package:e_qiu_guidance/Controller/Staff_controllers/manage_events_controller.dart';
+import 'package:e_qiu_guidance/Controller/fetch_controller.dart';
+import 'package:e_qiu_guidance/Model/events.dart';
+import 'package:e_qiu_guidance/View/staff%20view/view_event.dart';
+import 'package:e_qiu_guidance/Widgets/drawer.dart';
 
 class ManageEvents extends StatelessWidget {
   const ManageEvents({super.key});

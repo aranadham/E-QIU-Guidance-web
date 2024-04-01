@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:qiu_digital_guidance/Controller/fetch_controller.dart';
+import 'package:e_qiu_guidance/Controller/fetch_controller.dart';
 
 class ViewSeat extends StatelessWidget {
   final String userId;

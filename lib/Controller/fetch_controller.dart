@@ -4,8 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:qiu_digital_guidance/Model/events.dart';
-import 'package:qiu_digital_guidance/Model/speaker.dart';
+import 'package:e_qiu_guidance/Model/events.dart';
+import 'package:e_qiu_guidance/Model/speaker.dart';
 
 class FetchController extends ChangeNotifier {
   Stream<List<Event>> fetchEvents() {

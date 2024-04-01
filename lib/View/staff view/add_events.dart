@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:qiu_digital_guidance/Controller/Staff_controllers/add_events_controller.dart';
-import 'package:qiu_digital_guidance/Widgets/button.dart';
-import 'package:qiu_digital_guidance/Widgets/drawer.dart';
-import 'package:qiu_digital_guidance/Widgets/outlined_button.dart';
-import 'package:qiu_digital_guidance/Widgets/textfield.dart';
+import 'package:e_qiu_guidance/Controller/Staff_controllers/add_events_controller.dart';
+import 'package:e_qiu_guidance/Widgets/button.dart';
+import 'package:e_qiu_guidance/Widgets/drawer.dart';
+import 'package:e_qiu_guidance/Widgets/outlined_button.dart';
+import 'package:e_qiu_guidance/Widgets/textfield.dart';
 
 class AddEvents extends StatefulWidget {
   const AddEvents({super.key});

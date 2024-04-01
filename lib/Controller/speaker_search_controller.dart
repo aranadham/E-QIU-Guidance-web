@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qiu_digital_guidance/Model/speaker.dart';
+import 'package:e_qiu_guidance/Model/speaker.dart';
 
 class SpeakerSearchController extends ChangeNotifier {
   List<Speaker> filteredSpeakers = [];

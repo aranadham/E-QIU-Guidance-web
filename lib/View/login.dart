@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:qiu_digital_guidance/Controller/login_controller.dart';
-import 'package:qiu_digital_guidance/Widgets/button.dart';
-import 'package:qiu_digital_guidance/Widgets/outlined_button.dart';
-import 'package:qiu_digital_guidance/Widgets/textfield.dart';
-
+import 'package:e_qiu_guidance/Controller/login_controller.dart';
+import 'package:e_qiu_guidance/Widgets/button.dart';
+import 'package:e_qiu_guidance/Widgets/outlined_button.dart';
+import 'package:e_qiu_guidance/Widgets/textfield.dart';
+import 'package:e_qiu_guidance/mycolors.dart';
 class Login extends StatefulWidget {
   const Login({super.key});
 
@@ -27,10 +27,10 @@ class _LoginState extends State<Login> {
       appBar: AppBar(
         title: const Text(
           "Login",
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: white),
         ),
         centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 0, 106, 166),
+        backgroundColor: blue,
       ),
       body: SingleChildScrollView(
         child: Column(

@@ -3,7 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:qiu_digital_guidance/View/reserved_seats.dart';
+import 'package:e_qiu_guidance/View/reserved_seats.dart';
 
 class SeatController extends ChangeNotifier {
   bool isReserved = false;

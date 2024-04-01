@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:qiu_digital_guidance/Controller/fetch_controller.dart';
-import 'package:qiu_digital_guidance/Controller/speaker_search_controller.dart';
-import 'package:qiu_digital_guidance/Model/speaker.dart';
-import 'package:qiu_digital_guidance/View/view_speaker.dart';
-import 'package:qiu_digital_guidance/Widgets/search_field.dart';
+import 'package:e_qiu_guidance/Controller/fetch_controller.dart';
+import 'package:e_qiu_guidance/Controller/speaker_search_controller.dart';
+import 'package:e_qiu_guidance/Model/speaker.dart';
+import 'package:e_qiu_guidance/View/view_speaker.dart';
+import 'package:e_qiu_guidance/Widgets/search_field.dart';
 
 class Speakers extends StatelessWidget {
   const Speakers({super.key});

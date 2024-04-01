@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qiu_digital_guidance/Model/events.dart';
+import 'package:e_qiu_guidance/Model/events.dart';
 
 class EventSearchController extends ChangeNotifier {
   List<Event> filteredEvents = [];

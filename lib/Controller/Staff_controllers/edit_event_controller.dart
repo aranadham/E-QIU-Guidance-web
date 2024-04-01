@@ -2,7 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:qiu_digital_guidance/View/staff%20view/edit_event.dart';
+import 'package:e_qiu_guidance/View/staff%20view/edit_event.dart';
 class EditEventsController extends ChangeNotifier {
   String id = "";
   String title = "";

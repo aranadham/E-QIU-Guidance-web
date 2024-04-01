@@ -2,8 +2,8 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:qiu_digital_guidance/Controller/login_controller.dart';
-import 'package:qiu_digital_guidance/View/login.dart';
+import 'package:e_qiu_guidance/Controller/login_controller.dart';
+import 'package:e_qiu_guidance/View/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LogoutController extends ChangeNotifier {

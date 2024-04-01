@@ -2,13 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:qiu_digital_guidance/Controller/seat_controller.dart';
-import 'package:qiu_digital_guidance/Model/events.dart';
-import 'package:qiu_digital_guidance/Model/speaker.dart';
-import 'package:qiu_digital_guidance/View/view_speaker.dart';
-import 'package:qiu_digital_guidance/Widgets/button.dart';
-import 'package:qiu_digital_guidance/Widgets/tile_text.dart';
-import 'package:qiu_digital_guidance/Controller/fetch_controller.dart';
+import 'package:e_qiu_guidance/Controller/seat_controller.dart';
+import 'package:e_qiu_guidance/Model/events.dart';
+import 'package:e_qiu_guidance/Model/speaker.dart';
+import 'package:e_qiu_guidance/View/view_speaker.dart';
+import 'package:e_qiu_guidance/Widgets/button.dart';
+import 'package:e_qiu_guidance/Widgets/tile_text.dart';
+import 'package:e_qiu_guidance/Controller/fetch_controller.dart';
 
 class ViewPublicEvents extends StatefulWidget {
   final String id;

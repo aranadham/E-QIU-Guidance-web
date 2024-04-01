@@ -3,8 +3,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:qiu_digital_guidance/View/home_page.dart';
-import 'package:qiu_digital_guidance/View/staff%20view/add_events.dart';
+import 'package:e_qiu_guidance/View/home_page.dart';
+import 'package:e_qiu_guidance/View/staff%20view/add_events.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginController extends ChangeNotifier {

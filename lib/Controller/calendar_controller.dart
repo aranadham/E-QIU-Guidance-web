@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:qiu_digital_guidance/Model/events.dart';
+import 'package:e_qiu_guidance/Model/events.dart';
 
 class CalendarController extends ChangeNotifier {
   DateTime today = DateTime.now();

@@ -1,8 +1,8 @@
 import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:qiu_digital_guidance/Controller/calendar_controller.dart';
-import 'package:qiu_digital_guidance/View/view_event.dart';
+import 'package:e_qiu_guidance/Controller/calendar_controller.dart';
+import 'package:e_qiu_guidance/View/view_event.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class ViewCalendar extends StatefulWidget {

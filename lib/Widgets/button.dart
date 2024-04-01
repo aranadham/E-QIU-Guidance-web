@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:e_qiu_guidance/mycolors.dart';
 
 class Btn extends StatelessWidget {
   final String text;
@@ -19,7 +20,7 @@ class Btn extends StatelessWidget {
       onPressed: isDisabled ? null : onPressed,
       style: ElevatedButton.styleFrom(
         fixedSize: const Size(350, 10),
-        backgroundColor: const Color.fromARGB(255, 0, 106, 166),
+        backgroundColor: blue,
         foregroundColor: Colors.white,
       ),
       child: Text(
