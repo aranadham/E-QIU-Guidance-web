@@ -6,7 +6,6 @@ import 'package:e_qiu_guidance/mycolors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:e_qiu_guidance/Controller/Staff_controllers/add_events_controller.dart';
-import 'package:e_qiu_guidance/Widgets/mobile_widgets/drawer.dart';
 
 class AddEventsDesktop extends StatefulWidget {
   const AddEventsDesktop({super.key});
