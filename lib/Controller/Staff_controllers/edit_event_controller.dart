@@ -1,8 +1,11 @@
 // ignore_for_file: use_build_context_synchronously, unnecessary_null_comparison
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_qiu_guidance/View/desktop_view/staff%20view/edit_event_desktop.dart';
+import 'package:e_qiu_guidance/responsive/responsive_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:e_qiu_guidance/View/mobile_view/staff%20view/edit_event.dart';
+
 class EditEventsController extends ChangeNotifier {
   String id = "";
   String title = "";
@@ -35,7 +38,10 @@ class EditEventsController extends ChangeNotifier {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const EditEvent(),
+        builder: (context) => const ResponsiveLayout(
+          mobileBody: EditEvent(),
+          desktopBody: EditEventDesktop(),
+        ),
       ),
     );
   }

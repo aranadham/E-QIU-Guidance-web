@@ -22,6 +22,7 @@ class _RegisterStaffDesktopState extends State<RegisterStaffDesktop> {
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: NavBar(),
         backgroundColor: blue,
       ),

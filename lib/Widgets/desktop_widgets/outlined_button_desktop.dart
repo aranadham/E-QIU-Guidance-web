@@ -20,7 +20,7 @@ class OutlinedBtnDesktop extends StatelessWidget {
         side: const BorderSide(
           color: blue,
         ),
-        fixedSize: const Size(800, 40),
+        fixedSize: const Size(400, 40),
         foregroundColor: Colors.black,
       ),
       child: Text(

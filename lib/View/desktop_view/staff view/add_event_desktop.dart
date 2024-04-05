@@ -1,7 +1,7 @@
 import 'package:e_qiu_guidance/Widgets/desktop_widgets/button_desktop.dart';
 import 'package:e_qiu_guidance/Widgets/desktop_widgets/navbar.dart';
 import 'package:e_qiu_guidance/Widgets/desktop_widgets/outlined_button_desktop.dart';
-import 'package:e_qiu_guidance/Widgets/desktop_widgets/textfield_desktop.dart';
+import 'package:e_qiu_guidance/Widgets/mobile_widgets/textfield.dart';
 import 'package:e_qiu_guidance/mycolors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -28,6 +28,7 @@ class _AddEventsDesktopState extends State<AddEventsDesktop> {
     final controller = Provider.of<AddEventController>(context);
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: NavBar(),
         backgroundColor: blue,
       ),
@@ -40,54 +41,54 @@ class _AddEventsDesktopState extends State<AddEventsDesktop> {
               const SizedBox(
                 height: 30,
               ),
-              CustomTextFieldDesktop(
+              CustomTextField(
                 hint: "Event Title",
                 onChanged: (value) => controller.setTitle(value),
                 validator: controller.validateEventTitle,
               ),
-              CustomTextFieldDesktop(
+              CustomTextField(
                 hint: "Event Description",
                 onChanged: (value) => controller.setDescription(value),
                 validator: controller.validateEventDescription,
                 maxLine: 3,
                 maxLength: 100,
               ),
-              CustomTextFieldDesktop(
+              CustomTextField(
                 hint: "Event Type",
                 onChanged: (value) => controller.setType(value),
                 validator: controller.validateEventType,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Radio(
-                    value: 1,
-                    groupValue: controller.selectedRadio,
-                    onChanged: (value) {
-                      controller.setSelectedRadio(value!);
-                    },
-                  ),
-                  const Text('Public'),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  Radio(
-                    value: 2,
-                    groupValue: controller.selectedRadio,
-                    onChanged: (value) {
-                      controller.setSelectedRadio(value!);
-                    },
-                  ),
-                  const Text('Private'),
-                ],
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 40),
+                child: RadioListTile(
+                  title: const Text('Public'),
+                  activeColor: const Color.fromARGB(255, 0, 174, 239),
+                  value: 1,
+                  groupValue: controller.selectedRadio,
+                  onChanged: (value) {
+                    controller.setSelectedRadio(value!);
+                  },
+                ),
               ),
-              CustomTextFieldDesktop(
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 40),
+                child: RadioListTile(
+                  title: const Text('Private'),
+                  activeColor: const Color.fromARGB(255, 0, 174, 239),
+                  value: 2,
+                  groupValue: controller.selectedRadio,
+                  onChanged: (value) {
+                    controller.setSelectedRadio(value!);
+                  },
+                ),
+              ),
+              CustomTextField(
                 hint: "Event Venue",
                 onChanged: (value) => controller.setVenue(value),
                 validator: controller.validateEventVenue,
               ),
               const SizedBox(
-                height: 10,
+                height: 20,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
@@ -95,6 +96,9 @@ class _AddEventsDesktopState extends State<AddEventsDesktop> {
                   "Event Start Date: ${controller.selectedStartDateTime}",
                   style: const TextStyle(fontSize: 22),
                 ),
+              ),
+              const SizedBox(
+                height: 20,
               ),
               OutlinedBtnDesktop(
                 text: "Select Time",
@@ -112,7 +116,7 @@ class _AddEventsDesktopState extends State<AddEventsDesktop> {
                 },
               ),
               const SizedBox(
-                height: 10,
+                height: 20,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
@@ -120,6 +124,9 @@ class _AddEventsDesktopState extends State<AddEventsDesktop> {
                   "Event End Date: ${controller.selectedEndDateTime}",
                   style: const TextStyle(fontSize: 22),
                 ),
+              ),
+              const SizedBox(
+                height: 20,
               ),
               OutlinedBtnDesktop(
                 text: "Select Time",
@@ -136,19 +143,15 @@ class _AddEventsDesktopState extends State<AddEventsDesktop> {
                   controller.pickEndDate(context);
                 },
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              Text(
-                "Duration: ${controller.calculateEventDuration()}",
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              ),
-              const SizedBox(
-                height: 10,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
+                child: ListTile(
+                  title:
+                      Text("Duration: ${controller.calculateEventDuration()}"),
+                ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 520),
+                padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: ListTile(
                   title: Text(
                       "Number of Speaker: ${controller.speakersData.length}"),
@@ -182,14 +185,14 @@ class _AddEventsDesktopState extends State<AddEventsDesktop> {
                   index++)
                 Column(
                   children: [
-                    CustomTextFieldDesktop(
+                    CustomTextField(
                       hint: controller.speakersData[index]['Speaker'],
                       onChanged: (value) {
                         controller.setSpeaker(index, value);
                       },
                       validator: controller.validateEventSpeaker,
                     ),
-                    CustomTextFieldDesktop(
+                    CustomTextField(
                       hint: controller.speakersData[index]['Description'],
                       onChanged: (value) {
                         controller.setSpeakerDescription(index, value);
@@ -200,13 +203,13 @@ class _AddEventsDesktopState extends State<AddEventsDesktop> {
                     ),
                   ],
                 ),
-              CustomTextFieldDesktop(
+              CustomTextField(
                 hint: "Available seats",
                 keyboard: TextInputType.number,
                 onChanged: (value) =>
                     controller.setAvailableSeats(int.parse(value)),
               ),
-              CustomTextFieldDesktop(
+              CustomTextField(
                 hint: "Reserved Seats",
                 keyboard: TextInputType.number,
                 onChanged: (value) =>
@@ -217,7 +220,7 @@ class _AddEventsDesktopState extends State<AddEventsDesktop> {
               ),
               BtnDesktop(
                 text: "Add Event",
-                fontsize: 18,
+                fontSize: 18,
                 onPressed: () {
                   if (addEventKey.currentState?.validate() ?? false) {
                     controller.addEvent(context);

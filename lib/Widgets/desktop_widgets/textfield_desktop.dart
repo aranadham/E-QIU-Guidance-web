@@ -32,12 +32,11 @@ class CustomTextFieldDesktop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 540, vertical: 20),
+      padding: const EdgeInsets.symmetric(horizontal:320, vertical: 10),
       child: TextFormField(
         maxLines: maxLine ?? 1,
         maxLength: maxLength,
         initialValue: initialValue,
-        
         onChanged: onChanged,
         controller: controller,
         validator: validator,
@@ -60,6 +59,7 @@ class CustomTextFieldDesktop extends StatelessWidget {
               color: blue,
             ),
           ),
+          contentPadding: const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
         ),
       ),
     );

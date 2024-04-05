@@ -22,6 +22,7 @@ class _RegisterStudentDesktopState extends State<RegisterStudentDesktop> {
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: NavBar(),
         backgroundColor: blue,
       ),

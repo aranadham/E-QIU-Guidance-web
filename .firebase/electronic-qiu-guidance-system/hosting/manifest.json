@@ -1,6 +1,6 @@
 {
-    "name": "qiu_digital_guidance",
-    "short_name": "qiu_digital_guidance",
+    "name": "E_QIU_Guidance",
+    "short_name": "E_QIU_Guidance",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

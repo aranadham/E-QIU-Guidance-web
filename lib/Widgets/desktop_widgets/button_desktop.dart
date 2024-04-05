@@ -4,11 +4,12 @@ import 'package:e_qiu_guidance/mycolors.dart';
 class BtnDesktop extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
-  final double? fontsize;
-  final bool isDisabled; // Add this property
+  final double? fontSize;
+  final bool isDisabled;
+
   const BtnDesktop({
     super.key,
-    this.fontsize,
+    this.fontSize,
     required this.text,
     required this.onPressed,
     required this.isDisabled,
@@ -18,14 +19,15 @@ class BtnDesktop extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: isDisabled ? null : onPressed,
-      style: ElevatedButton.styleFrom(
-        fixedSize: const Size(800, 40),
-        backgroundColor: blue,
-        foregroundColor: Colors.white,
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(blue),
+        foregroundColor: MaterialStateProperty.all(Colors.white),
+        minimumSize: MaterialStateProperty.all(const Size(400, 40)),
+        padding: MaterialStateProperty.all(const EdgeInsets.all(10)),
       ),
       child: Text(
         text,
-        style: TextStyle(fontSize: fontsize),
+        style: TextStyle(fontSize: fontSize ?? 20), // Default font size if not provided
       ),
     );
   }

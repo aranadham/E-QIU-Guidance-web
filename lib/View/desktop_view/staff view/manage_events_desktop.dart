@@ -18,6 +18,7 @@ class ManageEventsDesktop extends StatelessWidget {
     final fetch = Provider.of<FetchController>(context);
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: NavBar(),
         backgroundColor: blue,
       ),

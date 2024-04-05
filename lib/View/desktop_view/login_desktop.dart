@@ -23,6 +23,8 @@ class _LoginDesktopState extends State<LoginDesktop> {
   @override
   Widget build(BuildContext context) {
     final controller = Provider.of<LoginController>(context);
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -37,12 +39,12 @@ class _LoginDesktopState extends State<LoginDesktop> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(
-              height: 50,
+            SizedBox(
+              height: screenHeight * 0.1,
             ),
             Image.asset("assets/qiu2.png"),
-            const SizedBox(
-              height: 50,
+            SizedBox(
+              height: screenHeight * 0.1,
             ),
             CustomTextFieldDesktop(
               hint: "Email",
@@ -59,19 +61,19 @@ class _LoginDesktopState extends State<LoginDesktop> {
                 await controller.login(context: context);
               },
             ),
-            const SizedBox(
-              height: 20,
+            SizedBox(
+              height: screenHeight * 0.05,
             ),
             BtnDesktop(
               onPressed: () async {
                 await controller.login(context: context);
               },
               text: "Login",
-              fontsize: 20,
+              fontSize: 20,
               isDisabled: false,
             ),
-            const SizedBox(
-              height: 20,
+            SizedBox(
+              height: screenHeight * 0.05,
             ),
             OutlinedBtnDesktop(
               text: "Guest",
