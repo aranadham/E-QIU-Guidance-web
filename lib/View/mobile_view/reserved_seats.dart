@@ -37,27 +37,28 @@ class Seats extends StatelessWidget {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
                 }
-            
+
                 if (snapshot.hasError) {
                   return Text('Error: ${snapshot.error}');
                 }
-            
+
                 if (!snapshot.hasData) {
                   const Center(
                     child: Text("Your reservations will appear here"),
                   );
                 }
-            
+
                 List<Event> events = snapshot.data ?? [];
                 List<Event> filteredEvents =
                     search.filterEvents(events, search.query);
-            
+
                 return ListView.builder(
                   itemCount: filteredEvents.length,
                   itemBuilder: (context, index) {
                     Event event = filteredEvents[index];
-                    String startDate = controller.formatDateTime(event.startdate);
-            
+                    String startDate =
+                        controller.formatDateTime(event.startdate);
+
                     return InkWell(
                       onTap: () {
                         Navigator.push(
@@ -70,28 +71,31 @@ class Seats extends StatelessWidget {
                           ),
                         );
                       },
-                      child: ListTile(
-                        title: Text(event.title),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(startDate),
-                            Text(event.venue),
-                          ],
-                        ),
-                        trailing: IconButton(
-                          icon: const Icon(Icons.arrow_forward_ios),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ViewSeat(
-                                  userId: userId,
-                                  eventId: event.id,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: ListTile(
+                          title: Text(event.title),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(startDate),
+                              Text(event.venue),
+                            ],
+                          ),
+                          trailing: IconButton(
+                            icon: const Icon(Icons.arrow_forward_ios),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ViewSeat(
+                                    userId: userId,
+                                    eventId: event.id,
+                                  ),
                                 ),
-                              ),
-                            );
-                          },
+                              );
+                            },
+                          ),
                         ),
                       ),
                     );

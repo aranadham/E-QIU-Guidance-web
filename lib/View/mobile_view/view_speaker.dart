@@ -85,7 +85,7 @@ class ViewSpeaker extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    ViewPublicEvents(id: event.id),
+                                    ViewEvents(id: event.id),
                               ),
                             );
                           },
@@ -103,7 +103,7 @@ class ViewSpeaker extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                        ViewPublicEvents(id: event.id),
+                                        ViewEvents(id: event.id),
                                   ),
                                 );
                               },

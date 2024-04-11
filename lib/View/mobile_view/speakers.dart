@@ -59,8 +59,9 @@ class Speakers extends StatelessWidget {
                         );
                       },
                       child: ListTile(
-                        leading: const Icon(Icons.person),
+                        leading: const Icon(Icons.person,size: 35,),
                         title: Text(speaker.name),
+                        subtitle: Text(speaker.description),
                         trailing: IconButton(
                           icon: const Icon(Icons.arrow_forward_ios),
                           onPressed: () {

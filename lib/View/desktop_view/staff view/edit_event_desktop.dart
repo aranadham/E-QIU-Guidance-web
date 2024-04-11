@@ -1,5 +1,6 @@
 import 'package:e_qiu_guidance/Widgets/desktop_widgets/button_desktop.dart';
 import 'package:e_qiu_guidance/Widgets/desktop_widgets/outlined_button_desktop.dart';
+import 'package:e_qiu_guidance/mycolors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:e_qiu_guidance/Controller/Staff_controllers/edit_event_controller.dart';
@@ -52,10 +53,47 @@ class _EditEventDesktopState extends State<EditEventDesktop> {
               maxLine: 3,
               maxLength: 100,
             ),
-            CustomTextField(
-              initialValue: controller.type,
-              hint: "Event Type",
-              onChanged: (value) => controller.setType(value),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+              child: DropdownButtonFormField<String>(
+                decoration: InputDecoration(
+                  hintText: 'Event Type',
+                  prefixIcon: const Icon(
+                    Icons.event,
+                    color: blue,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: const BorderSide(
+                      color: Color.fromARGB(255, 0, 106, 166),
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: const BorderSide(
+                      color: Color.fromARGB(255, 0, 106, 166),
+                    ),
+                  ),
+                ),
+                value: controller.type,
+                onChanged: (String? value) {
+                  if (value != null) {
+                    controller.setType(value);
+                  }
+                },
+                validator: controller.validateEventType,
+                items: controller.eventTypes.map((String eventType) {
+                  return DropdownMenuItem<String>(
+                    value: eventType,
+                    child: Text(eventType),
+                  );
+                }).toList(),
+                icon: const Icon(
+                  Icons.arrow_drop_down_circle,
+                  color: blue,
+                ),
+                dropdownColor: lightblue,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40),
@@ -89,7 +127,6 @@ class _EditEventDesktopState extends State<EditEventDesktop> {
             const SizedBox(
               height: 10,
             ),
-          
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: Text(
@@ -142,7 +179,7 @@ class _EditEventDesktopState extends State<EditEventDesktop> {
             ),
             BtnDesktop(
               text: "Update",
-              onPressed: () async{
+              onPressed: () async {
                 await controller.updateEvent(context);
               },
               isDisabled: false,

@@ -15,6 +15,10 @@ class EditEventsController extends ChangeNotifier {
   String venue = "";
   DateTime selectedStartDateTime = DateTime.now();
   DateTime selectedEndDateTime = DateTime.now();
+  List<String> eventTypes = [
+    'Seminar',
+    'Workshop',
+  ];
 
   void navigateToEdit({
     required BuildContext context,

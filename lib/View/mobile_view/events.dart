@@ -1,3 +1,4 @@
+import 'package:e_qiu_guidance/mycolors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:e_qiu_guidance/Controller/fetch_controller.dart';
@@ -70,38 +71,55 @@ class _EventsState extends State<Events> {
                     String startDate =
                         controller.formatDateTime(event.startdate);
 
+                    Color tileColor = tileColors[index % tileColors.length];
                     return InkWell(
                       onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => ViewPublicEvents(
+                            builder: (context) => ViewEvents(
                               id: event.id,
                             ),
                           ),
                         );
                       },
-                      child: ListTile(
-                        title: Text(event.title),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(startDate),
-                            Text(event.venue),
-                          ],
-                        ),
-                        trailing: IconButton(
-                          icon: const Icon(Icons.arrow_forward_ios),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ViewPublicEvents(
-                                  id: event.id,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: ListTile(
+                          leading: Icon(
+                            Icons.event,
+                            size: 45,
+                            color: tileColor,
+                          ),
+                          title: Text(
+                            event.title,
+                            style: TextStyle(color: tileColor),
+                          ),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(startDate,
+                                  style: TextStyle(color: tileColor)),
+                              Text(event.venue,
+                                  style: TextStyle(color: tileColor)),
+                            ],
+                          ),
+                          trailing: IconButton(
+                            icon: Icon(
+                              Icons.arrow_forward_ios,
+                              color: tileColor,
+                            ),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ViewEvents(
+                                    id: event.id,
+                                  ),
                                 ),
-                              ),
-                            );
-                          },
+                              );
+                            },
+                          ),
                         ),
                       ),
                     );

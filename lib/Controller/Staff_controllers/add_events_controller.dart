@@ -6,8 +6,7 @@ import 'package:flutter/material.dart';
 class AddEventController extends ChangeNotifier {
   String title = "";
   String description = "";
-  String type = "";
-  int selectedRadio = 0;
+  String selectedRadio = "";
   String venue = "";
   DateTime selectedStartDateTime = DateTime.now();
   DateTime selectedEndDateTime = DateTime.now();
@@ -19,6 +18,13 @@ class AddEventController extends ChangeNotifier {
   ];
   int availableSeats = 0;
   int reservedSeats = 0;
+
+  String? selectedEventType;
+
+  List<String> eventTypes = [
+    'Seminar',
+    'Workshop',
+  ];
 
   final ScrollController scrollController = ScrollController();
 
@@ -33,11 +39,11 @@ class AddEventController extends ChangeNotifier {
   }
 
   void setType(String value) {
-    type = value;
+    selectedEventType = value;
     notifyListeners();
   }
 
-  void setSelectedRadio(int value) {
+  void setSelectedRadio(String value) {
     selectedRadio = value;
     notifyListeners();
   }
@@ -268,12 +274,8 @@ class AddEventController extends ChangeNotifier {
           {
             'title': title,
             'description': description,
-            'type': type,
-            'visibility': selectedRadio == 1
-                ? "Public"
-                : selectedRadio == 2
-                    ? "Private"
-                    : "",
+            'type': selectedEventType ?? 'none',
+            'visibility': selectedRadio,
             'venue': venue,
             'Start Date': startdate,
             'End Date': enddate,
@@ -287,8 +289,8 @@ class AddEventController extends ChangeNotifier {
 
         title = "";
         description = "";
-        type = "";
-        selectedRadio = 0;
+        selectedEventType = "";
+        selectedRadio = "";
         venue = "";
         selectedStartDateTime = DateTime.now();
         selectedEndDateTime = DateTime.now();

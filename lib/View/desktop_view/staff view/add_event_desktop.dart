@@ -53,17 +53,52 @@ class _AddEventsDesktopState extends State<AddEventsDesktop> {
                 maxLine: 3,
                 maxLength: 100,
               ),
-              CustomTextField(
-                hint: "Event Type",
-                onChanged: (value) => controller.setType(value),
-                validator: controller.validateEventType,
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                child: DropdownButtonFormField<String>(
+                  decoration: InputDecoration(
+                    hintText: 'Event Type',
+                    prefixIcon: const Icon(Icons.event,color: blue,),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(
+                        color: Color.fromARGB(255, 0, 106, 166),
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(
+                        color: Color.fromARGB(255, 0, 106, 166),
+                      ),
+                    ),
+                  ),
+                  value: controller.selectedEventType,
+                  onChanged: (String? value) {
+                    if (value != null) {
+                      controller.setType(value);
+                    }
+                  },
+                  validator: controller.validateEventType,
+                  items: controller.eventTypes.map((String eventType) {
+                    return DropdownMenuItem<String>(
+                      value: eventType,
+                      child: Text(eventType),
+                    );
+                  }).toList(),
+                  icon: const Icon(
+                    Icons.arrow_drop_down_circle,
+                    color: blue,
+                  ),
+                  dropdownColor: lightblue,
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 40),
                 child: RadioListTile(
                   title: const Text('Public'),
                   activeColor: const Color.fromARGB(255, 0, 174, 239),
-                  value: 1,
+                  value: "Public",
                   groupValue: controller.selectedRadio,
                   onChanged: (value) {
                     controller.setSelectedRadio(value!);
@@ -75,7 +110,7 @@ class _AddEventsDesktopState extends State<AddEventsDesktop> {
                 child: RadioListTile(
                   title: const Text('Private'),
                   activeColor: const Color.fromARGB(255, 0, 174, 239),
-                  value: 2,
+                  value: "Private",
                   groupValue: controller.selectedRadio,
                   onChanged: (value) {
                     controller.setSelectedRadio(value!);

@@ -10,18 +10,18 @@ import 'package:e_qiu_guidance/Widgets/mobile_widgets/button.dart';
 import 'package:e_qiu_guidance/Widgets/mobile_widgets/tile_text.dart';
 import 'package:e_qiu_guidance/Controller/fetch_controller.dart';
 
-class ViewPublicEvents extends StatefulWidget {
+class ViewEvents extends StatefulWidget {
   final String id;
-  const ViewPublicEvents({
+  const ViewEvents({
     super.key,
     required this.id,
   });
 
   @override
-  State<ViewPublicEvents> createState() => _ViewPublicEventsState();
+  State<ViewEvents> createState() => _ViewEventsState();
 }
 
-class _ViewPublicEventsState extends State<ViewPublicEvents> {
+class _ViewEventsState extends State<ViewEvents> {
   @override
   void initState() {
     super.initState();
@@ -151,7 +151,7 @@ class _ViewPublicEventsState extends State<ViewPublicEvents> {
               ),
               Center(
                 child: Btn(
-                  text: "Attend",
+                  text: "Register",
                   onPressed: () async {
                     if (event.seatCount < event.availableSeats) {
                       await seat.reserveSeat(context, event.id);
