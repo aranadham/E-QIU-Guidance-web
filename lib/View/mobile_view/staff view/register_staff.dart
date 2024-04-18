@@ -27,43 +27,69 @@ class _RegisterStaffState extends State<RegisterStaff> {
         foregroundColor: Colors.white,
       ),
       drawer: const StaffDrawer(),
-      body: SingleChildScrollView(
-        child: Form(
-          key: registerStaffKey,
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 30,
-              ),
-              CustomTextField(
-                hint: "Staff Name",
-                validator: controller.validateUserName,
-                onChanged: (value) => controller.setUserName(value),
-              ),
-              CustomTextField(
-                hint: "Email",
-                keyboard: TextInputType.emailAddress,
-                onChanged: (value) => controller.setEmail(value),
-                validator: controller.validateEmail,
-              ),
-              CustomTextField(
-                hint: "Password",
-                obscureText: true,
-                onChanged: (value) => controller.setPassword(value),
-                validator: controller.validatePassword,
-              ),
-              const SizedBox(height: 20),
-              Btn(
-                text: "Register Staff",
-                onPressed: () {
-                  if (registerStaffKey.currentState?.validate() ?? false) {
-                    controller.registerStaff(context);
-                  }
-                },
-                isDisabled: false,
-              ),
-            ],
-          ),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage("assets/QIU wallpaper2.jpg"),
+              fit: BoxFit.cover),
+        ),
+        child: Center(
+          child: Container(
+              color: Colors.grey.withOpacity(0.9),
+              child: Container(
+                margin:
+                    const EdgeInsets.symmetric(vertical: 180, horizontal: 40),
+                padding: const EdgeInsets.all(10.0),
+                decoration: BoxDecoration(
+                  color: Colors.white, // Adjust opacity as needed
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                child: ListView(
+                  children: [
+                    Form(
+                      key: registerStaffKey,
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          CustomTextField(
+                            hint: "Staff Name",
+                            validator: controller.validateUserName,
+                            onChanged: (value) => controller.setUserName(value),
+                          ),
+                          CustomTextField(
+                            hint: "Email",
+                            keyboard: TextInputType.emailAddress,
+                            onChanged: (value) => controller.setEmail(value),
+                            validator: controller.validateEmail,
+                          ),
+                          CustomTextField(
+                            hint: "Password",
+                            obscureText: true,
+                            onChanged: (value) => controller.setPassword(value),
+                            validator: controller.validatePassword,
+                          ),
+                          const SizedBox(height: 20),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 25),
+                            child: Btn(
+                              text: "Register Staff",
+                              onPressed: () {
+                                if (registerStaffKey.currentState?.validate() ??
+                                    false) {
+                                  controller.registerStaff(context);
+                                }
+                              },
+                              isDisabled: false,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              )),
         ),
       ),
     );

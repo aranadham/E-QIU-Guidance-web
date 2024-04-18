@@ -21,103 +21,121 @@ class ViewSpeaker extends StatelessWidget {
         backgroundColor: const Color.fromARGB(255, 0, 106, 166),
         foregroundColor: Colors.white,
       ),
-      body: StreamBuilder(
-        stream: controller.fetchSpeaker(documentId: id),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage("assets/QIU wallpaper2.jpg"),
+              fit: BoxFit.cover),
+        ),
+        child: Container(
+          color: Colors.grey.withOpacity(0.9),
+          child: Container(
+            margin: const EdgeInsets.symmetric(vertical: 100, horizontal: 40),
+            padding: const EdgeInsets.all(10.0),
+            decoration: BoxDecoration(
+              color: Colors.white, // Adjust opacity as needed
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+            child: StreamBuilder(
+              stream: controller.fetchSpeaker(documentId: id),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                }
 
-          if (snapshot.hasError) {
-            return Text('Error: ${snapshot.error}');
-          }
+                if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                }
 
-          if (!snapshot.hasData) {
-            const Center(
-              child: Text("Speaker Not Found"),
-            );
-          }
+                if (!snapshot.hasData) {
+                  const Center(
+                    child: Text("Speaker Not Found"),
+                  );
+                }
 
-          Speaker? speaker = snapshot.data!;
+                Speaker? speaker = snapshot.data!;
 
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(
-                height: 60,
-              ),
-              CustomText(value: speaker.name),
-              CustomText(value: speaker.description),
-              const SizedBox(
-                height: 40,
-              ),
-              const CustomText(value: "Related Sessions"),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                child: Divider(
-                  color: Colors.black,
-                ),
-              ),
-              Expanded(
-                child: StreamBuilder(
-                  stream: controller.fetchRelatedEvents(speaker.id),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState ==
-                        ConnectionState.waiting) {
-                      return const Center(
-                        child: Text("Loading...."),
-                      );
-                    }
-
-                    if (snapshot.hasError) {
-                      return Text('Error: ${snapshot.error}');
-                    }
-
-                    List<Event> events = snapshot.data ?? [];
-
-                    return ListView.builder(
-                      itemCount: events.length,
-                      itemBuilder: (context, index) {
-                        Event event = events[index];
-                        return InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    ViewEvents(id: event.id),
-                              ),
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 60,
+                    ),
+                    CustomText(value: speaker.name),
+                    CustomText(value: speaker.description),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    const CustomText(value: "Related Sessions"),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 15),
+                      child: Divider(
+                        color: Colors.black,
+                      ),
+                    ),
+                    Expanded(
+                      child: StreamBuilder(
+                        stream: controller.fetchRelatedEvents(speaker.id),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(
+                              child: Text("Loading...."),
                             );
-                          },
-                          child: ListTile(
-                            title: Text(
-                              event.title,
-                            ),
-                            subtitle: Text(
-                              event.venue,
-                            ),
-                            trailing: IconButton(
-                              icon: const Icon(Icons.arrow_forward_ios),
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        ViewEvents(id: event.id),
+                          }
+
+                          if (snapshot.hasError) {
+                            return Text('Error: ${snapshot.error}');
+                          }
+
+                          List<Event> events = snapshot.data ?? [];
+
+                          return ListView.builder(
+                            itemCount: events.length,
+                            itemBuilder: (context, index) {
+                              Event event = events[index];
+                              return InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          ViewEvents(id: event.id),
+                                    ),
+                                  );
+                                },
+                                child: ListTile(
+                                  title: Text(
+                                    event.title,
                                   ),
-                                );
-                              },
-                            ),
-                          ),
-                        );
-                      },
-                    );
-                  },
-                ),
-              ),
-            ],
-          );
-        },
+                                  subtitle: Text(
+                                    event.venue,
+                                  ),
+                                  trailing: IconButton(
+                                    icon: const Icon(Icons.arrow_forward_ios),
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              ViewEvents(id: event.id),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
+          ),
+        ),
       ),
     );
   }

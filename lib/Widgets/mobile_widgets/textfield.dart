@@ -36,7 +36,6 @@ class CustomTextField extends StatelessWidget {
         maxLines: maxLine ?? 1,
         maxLength: maxLength,
         initialValue: initialValue,
-        
         onChanged: onChanged,
         controller: controller,
         validator: validator,

@@ -9,13 +9,10 @@ class CustomTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(
-        label,
+        "$label: $value",
         style: const TextStyle(fontSize: 20),
       ),
-      trailing: Text(
-        value,
-        style: const TextStyle(fontSize: 20),
-      ),
+      
     );
   }
 }

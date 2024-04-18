@@ -84,8 +84,7 @@ class _ViewCalendarState extends State<ViewCalendar> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                                ViewEvents(id: event.id),
+                            builder: (context) => ViewEvents(id: event.id),
                           ),
                         );
                       },

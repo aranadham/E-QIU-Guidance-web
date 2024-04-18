@@ -1,3 +1,4 @@
+import 'package:e_qiu_guidance/mycolors.dart';
 import 'package:flutter/material.dart';
 class SearchField extends StatelessWidget {
   final String label;
@@ -16,7 +17,7 @@ class SearchField extends StatelessWidget {
         onChanged: onChanged,
         decoration: InputDecoration(
           labelText: label,
-          suffixIcon: const Icon(Icons.search),
+          suffixIcon: const Icon(Icons.search,color: blue,size: 30),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(50),
           ),

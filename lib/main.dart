@@ -1,6 +1,6 @@
-import 'package:e_qiu_guidance/View/desktop_view/login_desktop.dart';
 import 'package:e_qiu_guidance/responsive/responsive_layout.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:e_qiu_guidance/Controller/Staff_controllers/add_events_controller.dart';
 import 'package:e_qiu_guidance/Controller/Staff_controllers/drawer_controller.dart';
@@ -14,6 +14,7 @@ import 'package:e_qiu_guidance/Controller/logout_controller.dart';
 import 'package:e_qiu_guidance/Controller/event_search_controller.dart';
 import 'package:e_qiu_guidance/Controller/seat_controller.dart';
 import 'package:e_qiu_guidance/Controller/speaker_search_controller.dart';
+import 'package:e_qiu_guidance/View/desktop_view/login_desktop.dart';
 import 'package:e_qiu_guidance/View/mobile_view/login.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -23,6 +24,12 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  // Locking the app in portrait mode
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+
   runApp(const MyApp());
 }
 
