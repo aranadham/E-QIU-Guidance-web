@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously, unnecessary_null_comparison
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_qiu_guidance/Model/speaker.dart';
 import 'package:e_qiu_guidance/View/desktop_view/staff%20view/edit_event_desktop.dart';
 import 'package:e_qiu_guidance/responsive/responsive_layout.dart';
 import 'package:flutter/material.dart';
@@ -13,12 +14,56 @@ class EditEventsController extends ChangeNotifier {
   String type = "";
   String selectedRadio = "";
   String venue = "";
+  List<Map<String, dynamic>> speakersData = [];
+  DocumentReference? eventRef;
   DateTime selectedStartDateTime = DateTime.now();
   DateTime selectedEndDateTime = DateTime.now();
   List<String> eventTypes = [
     'Seminar',
     'Workshop',
   ];
+
+  Future<List<Map<String, dynamic>>> fetchRelatedSpeakers(
+      String documentId) async {
+    // Fetch the event document from Firestore.
+    DocumentSnapshot eventSnapshot = await FirebaseFirestore.instance
+        .collection("Events")
+        .doc(documentId)
+        .get();
+
+    List<String> speakerRefs = [];
+
+    // Check if the event document exists and extract the speaker references.
+    if (eventSnapshot.exists) {
+      var data = eventSnapshot.data() as Map<String, dynamic>;
+      speakerRefs = List<String>.from(data['speakerRefs'] ?? []);
+    }
+
+    List<Map<String, dynamic>> speakerMaps = [];
+
+    // Retrieve the corresponding speaker documents based on references.
+    for (String speakerRef in speakerRefs) {
+      DocumentSnapshot speakerSnapshot = await FirebaseFirestore.instance
+          .collection("Speakers")
+          .doc(speakerRef)
+          .get();
+
+      if (speakerSnapshot.exists) {
+        var speakerData = speakerSnapshot.data() as Map<String, dynamic>;
+
+        // Create a Speaker object using Speaker.fromMap.
+        Speaker speaker = Speaker.fromMap(speakerSnapshot.id, speakerData);
+
+        // Convert the Speaker object to a map using Speaker.toMap.
+        Map<String, dynamic> speakerMap = speaker.toMap();
+
+        // Add to the list of speaker maps.
+        speakerMaps.add(speakerMap);
+      }
+    }
+
+    return speakerMaps; // Return the list of speaker maps.
+  }
 
   void navigateToEdit({
     required BuildContext context,
@@ -30,13 +75,14 @@ class EditEventsController extends ChangeNotifier {
     required String venue,
     required DateTime startDateTime,
     required DateTime endDateTime,
-  }) {
+  }) async {
     this.id = id;
     this.title = title;
     this.description = description;
     this.type = type;
     selectedRadio = radio;
     this.venue = venue;
+    speakersData = await fetchRelatedSpeakers(id);
     selectedStartDateTime = startDateTime;
     selectedEndDateTime = endDateTime;
     Navigator.push(
@@ -72,6 +118,30 @@ class EditEventsController extends ChangeNotifier {
 
   void setVenue(String value) {
     venue = value;
+    notifyListeners();
+  }
+
+  void incrementNumberOfFields() {
+    if (speakersData.length < 5) {
+      speakersData.add({});
+      notifyListeners();
+    }
+  }
+
+  void decrementNumberOfFields() {
+    if (speakersData.length > 1) {
+      speakersData.removeLast();
+      notifyListeners();
+    }
+  }
+
+  void setSpeaker(int index, String value) {
+    speakersData[index]['Speaker'] = value;
+    notifyListeners();
+  }
+
+  void setSpeakerDescription(int index, String value) {
+    speakersData[index]['Description'] = value;
     notifyListeners();
   }
 
@@ -230,6 +300,24 @@ class EditEventsController extends ChangeNotifier {
     return null;
   }
 
+  String? validateEventSpeaker(String? value) {
+    if (value!.isEmpty) {
+      return 'Please enter the speaker name';
+    } else if (value.length < 6 || value.length > 10) {
+      return 'Speaker name should be between 6 and 10 characters';
+    }
+    return null;
+  }
+
+  String? validateEventSpeakerDescription(String? value) {
+    if (value!.isEmpty) {
+      return 'Please enter the speaker description';
+    } else if (value.length < 11 || value.length > 50) {
+      return 'Speaker description should be between 11 and 50 characters';
+    }
+    return null;
+  }
+
   Future<void> updateEvent(BuildContext context) async {
     try {
       if (selectedStartDateTime != null && selectedEndDateTime != null) {
@@ -247,6 +335,8 @@ class EditEventsController extends ChangeNotifier {
             'Duration': calculateEventDuration(),
           },
         );
+
+        await updateSpeakers(id);
         showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -285,4 +375,85 @@ class EditEventsController extends ChangeNotifier {
       );
     }
   }
+
+  Future<void> updateSpeakers(String eventRef) async {
+    List<String> speakerRefs = []; // List to store updated speaker references
+
+    for (var speaker in speakersData) {
+      // Check if a speaker with the same name already exists
+      QuerySnapshot existingSpeakers = await FirebaseFirestore.instance
+          .collection("Speakers")
+          .where('Speaker Name', isEqualTo: speaker['Speaker'])
+          .limit(1)
+          .get();
+
+      if (existingSpeakers.docs.isNotEmpty) {
+        // Use the existing speaker if found
+        DocumentReference existingSpeakerRef =
+            existingSpeakers.docs.first.reference;
+
+        // Update the existing speaker with the new event reference and updated description
+        await existingSpeakerRef.update({
+          'Speaker Description': speaker['Description'], // Updated description
+        });
+
+        // Add the existing speaker reference to the list
+        speakerRefs.add(existingSpeakerRef.id);
+      } else {
+        // Create a new speaker if none exists with the same name
+        DocumentReference newSpeakerRef =
+            await FirebaseFirestore.instance.collection("Speakers").add(
+          {
+            'Speaker Name': speaker['Speaker'],
+            'Speaker Description': speaker['Description'],
+            'eventRefs': [
+              eventRef
+            ], // Initialize with the current event reference
+          },
+        );
+
+        // Add the new speaker reference to the list
+        speakerRefs.add(newSpeakerRef.id);
+      }
+    }
+
+    // Update the event document with the list of updated/new speaker references
+    await FirebaseFirestore.instance
+        .collection("Events")
+        .doc(eventRef)
+        .update({'speakerRefs': speakerRefs});
+  }
+
+  Future<void> removeSpeakerFromFirebase(int index, String speakerRef,) async {
+  // Get references to the Event and Speaker documents
+  final eventReference = FirebaseFirestore.instance.collection('Events').doc(id);
+  final speakerReference = FirebaseFirestore.instance.collection('Speakers').doc(speakerRef);
+
+
+  // Remove the speaker from the Event
+  eventReference.update({
+    'speakerRefs': FieldValue.arrayRemove([speakerRef]),
+  });
+
+  // Remove the event from the Speaker
+  speakerReference.update( {
+    'eventRefs': FieldValue.arrayRemove([id]),
+  });
+
+
+  // Check if `eventRefs` in the speaker document is empty
+  final speakerDoc = await speakerReference.get();
+  final eventRefs = speakerDoc['eventRefs'] as List<dynamic>?;
+
+  if (eventRefs == null || eventRefs.isEmpty) {
+    // If `eventRefs` is empty, delete the Speaker document
+    await speakerReference.delete();
+  }
+
+  // Remove the speaker from your local list and notify listeners
+  speakersData.removeAt(index);
+  notifyListeners(); // Notify that the list has changed
+}
+
+
 }

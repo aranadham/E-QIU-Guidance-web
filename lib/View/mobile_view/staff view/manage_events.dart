@@ -94,6 +94,7 @@ class ManageEvents extends StatelessWidget {
                                     type: event.type,
                                     radio: event.visibility,
                                     venue: event.venue,
+                                    
                                     startDateTime: event.toDateTimeObject(),
                                     endDateTime: event.toDateTimeObject1(),
                                   );

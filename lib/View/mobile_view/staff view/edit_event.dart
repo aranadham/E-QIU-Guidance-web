@@ -199,6 +199,107 @@ class _EditEventState extends State<EditEvent> {
                   const SizedBox(
                     height: 20,
                   ),
+                  ListTile(
+                    title: Text(
+                        "Number of Speaker: ${controller.speakersData.length}"),
+                    trailing: Column(
+                      children: [
+                        Expanded(
+                          child: IconButton(
+                            onPressed: () {
+                              controller.incrementNumberOfFields();
+                            },
+                            icon: const Icon(Icons.add),
+                          ),
+                        ),
+                        Expanded(
+                          child: IconButton(
+                            onPressed: () {
+                              controller.decrementNumberOfFields();
+                            },
+                            icon: const Icon(Icons.remove),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  for (int index = 0;
+                      index < controller.speakersData.length;
+                      index++)
+                    Column(
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Column(
+                                children: [
+                                  CustomTextField(
+                                    initialValue: controller.speakersData[index]
+                                        ['Speaker'],
+                                    hint: "Speaker",
+                                    onChanged: (value) {
+                                      controller.setSpeaker(index, value);
+                                    },
+                                    validator: controller.validateEventSpeaker,
+                                  ),
+                                  CustomTextField(
+                                    initialValue: controller.speakersData[index]
+                                        ['Description'],
+                                    hint: "Speaker Description",
+                                    onChanged: (value) {
+                                      controller.setSpeakerDescription(
+                                          index, value);
+                                    },
+                                    validator: controller
+                                        .validateEventSpeakerDescription,
+                                    maxLength: 50,
+                                    maxLine: 3,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            IconButton(
+                              icon: const Icon(
+                                Icons.delete,
+                                color: Colors.red,
+                              ),
+                              onPressed: () async {
+                                // Confirm before deletion
+                                bool confirmDeletion = await showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: const Text("Confirm Deletion"),
+                                      content: const Text(
+                                          "Are you sure you want to delete this speaker?"),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(context, false),
+                                          child: const Text("Cancel"),
+                                        ),
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(context, true),
+                                          child: const Text("Delete"),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+
+                                if (confirmDeletion) {
+                                  // Call the controller function to remove the speaker
+                                  await controller.removeSpeakerFromFirebase(
+                                      index,
+                                      controller.speakersData[index]['id']);
+                                }
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   Btn(
                     text: "Update",
                     onPressed: () async {

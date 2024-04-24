@@ -13,6 +13,14 @@ class Speaker {
 
   Speaker.empty();
 
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'eventRef': eventRef,
+      'Speaker': name,
+      'Description': description,
+    };
+  }
   factory Speaker.fromMap(String id, Map<String, dynamic> map) {
     return Speaker(
       id: id,

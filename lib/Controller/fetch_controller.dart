@@ -199,6 +199,8 @@ class FetchController extends ChangeNotifier {
     );
   }
 
+  
+
   Stream<List<Event>> fetchReservations(String userId) {
     try {
       // Reference to the reservations collection

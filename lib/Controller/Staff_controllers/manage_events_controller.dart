@@ -46,42 +46,4 @@ class ManageEventsController extends ChangeNotifier {
     }
   }
 
-  // Future<void> deleteReservations(String eventId) async {
-  //   print("function invoked");
-  //   try {
-  //     print("event Id : $eventId");
-
-  //     // Step 1: Retrieve all docs in the "reservations" collection
-  //     QuerySnapshot reservationsSnapshot =
-  //         await FirebaseFirestore.instance.collection("reservations").get();
-
-  //     print("retrieved all docs : $reservationsSnapshot");
-
-  //     // Step 2: For each doc in the "reservations" collection
-  //     for (int i = 0; i < reservationsSnapshot.docs.length; i++) {
-  //       QueryDocumentSnapshot reservationDoc = reservationsSnapshot.docs[i];
-  //       print("doc id: ${reservationDoc.id}");
-
-  //       // Step 3: Access sub-collection named "reservations"
-  //       CollectionReference eventCollection = FirebaseFirestore.instance
-  //           .collection("reservations")
-  //           .doc(reservationDoc.id)
-  //           .collection("reservations");
-
-  //       print("accessing : ${eventCollection.path}");
-
-  //       // Check if a document with eventId exists in the sub-collection
-  //       DocumentSnapshot eventDoc = await eventCollection.doc(eventId).get();
-  //       if (eventDoc.exists) {
-  //         print("deleting $eventId");
-  //         await eventCollection.doc(eventId).delete();
-  //         print("deleted");
-  //       } else {
-  //         print("No document found with eventId: $eventId in sub-collection");
-  //       }
-  //     }
-  //   } catch (error) {
-  //     print("Error deleting reservations: $error");
-  //   }
-  // }
 }

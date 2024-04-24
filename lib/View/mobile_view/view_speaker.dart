@@ -67,12 +67,6 @@ class ViewSpeaker extends StatelessWidget {
                       height: 40,
                     ),
                     const CustomText(value: "Related Sessions"),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15),
-                      child: Divider(
-                        color: Colors.black,
-                      ),
-                    ),
                     Expanded(
                       child: StreamBuilder(
                         stream: controller.fetchRelatedEvents(speaker.id),

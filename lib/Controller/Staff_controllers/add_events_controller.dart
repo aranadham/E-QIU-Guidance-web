@@ -22,6 +22,7 @@ class AddEventController extends ChangeNotifier {
   String? selectedEventType;
 
   List<String> eventTypes = [
+    'Event Type'
     'Seminar',
     'Workshop',
   ];
@@ -229,9 +230,11 @@ class AddEventController extends ChangeNotifier {
 
   String? validateEventType(String? value) {
     if (value!.isEmpty) {
-      return 'Please enter the event type';
+      return 'Please select the event type';
     } else if (value.length < 5 || value.length > 20) {
       return 'Event type should be between 5 and 20 characters';
+    }else if(value == "Event Type"){
+      return 'Please select the event type';
     }
     return null;
   }
@@ -289,7 +292,7 @@ class AddEventController extends ChangeNotifier {
 
         title = "";
         description = "";
-        selectedEventType = "";
+        selectedEventType = "Event Type";
         selectedRadio = "";
         venue = "";
         selectedStartDateTime = DateTime.now();
@@ -342,19 +345,6 @@ class AddEventController extends ChangeNotifier {
       );
     }
   }
-
-//   Future<void> addSpeakers(DocumentReference eventRef) async {
-//   // Iterate through your speakersData and add each speaker to a separate collection
-//   for (var speaker in speakersData) {
-//     await FirebaseFirestore.instance.collection("Speakers").add(
-//       {
-//         'eventRef': eventRef.id,
-//         'Speaker Name': speaker['Speaker'],
-//         'Speaker Description': speaker['Description'],
-//       },
-//     );
-//   }
-// }
 
   Future<void> addSpeakers(DocumentReference eventRef) async {
     List speakerRefs = [];
