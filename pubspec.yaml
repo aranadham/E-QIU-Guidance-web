@@ -45,6 +45,8 @@ dependencies:
   latlong2: ^0.9.0
   woosmap_flutter: ^1.2.1
   shared_preferences: ^2.2.2
+  flutter_local_notifications: ^17.1.0
+  timezone: ^0.9.3
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,4 +1,6 @@
+import 'package:e_qiu_guidance/Controller/notifi_service.dart';
 import 'package:e_qiu_guidance/responsive/responsive_layout.dart';
+// import 'package:e_qiu_guidance/test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +23,7 @@ import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  NotificationService().initNotification();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -29,7 +32,7 @@ Future<void> main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-
+  NotificationService().scheduleEventNotifications();
   runApp(const MyApp());
 }
 
