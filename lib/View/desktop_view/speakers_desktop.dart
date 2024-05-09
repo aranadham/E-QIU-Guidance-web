@@ -6,8 +6,8 @@ import 'package:e_qiu_guidance/Model/speaker.dart';
 import 'package:e_qiu_guidance/View/mobile_view/view_speaker.dart';
 import 'package:e_qiu_guidance/Widgets/mobile_widgets/search_field.dart';
 
-class Speakers extends StatelessWidget {
-  const Speakers({super.key});
+class SpeakersDesktop extends StatelessWidget {
+  const SpeakersDesktop({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class Speakers extends StatelessWidget {
         child: Container(
           color: Colors.grey.withOpacity(0.9),
           child: Container(
-            margin: const EdgeInsets.symmetric(vertical: 100, horizontal: 40),
+            margin: const EdgeInsets.symmetric(vertical: 100, horizontal: 280),
             padding: const EdgeInsets.all(10.0),
             decoration: BoxDecoration(
               color: Colors.white, // Adjust opacity as needed

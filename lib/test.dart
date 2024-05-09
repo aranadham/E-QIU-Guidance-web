@@ -12,7 +12,7 @@
 //           child: const Text("send"),
 //           onPressed: () {
 //             NotificationService()
-//                 .showNotification(title: "hey", body: "it works!");
+//                 .showTest(title: "hey", body: "it works!");
 //           },
 //         ),
 //       ),

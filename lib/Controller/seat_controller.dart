@@ -1,6 +1,8 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_qiu_guidance/Controller/notifi_service.dart';
+import 'package:e_qiu_guidance/View/desktop_view/reserved_seats_desktop.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:e_qiu_guidance/View/mobile_view/reserved_seats.dart';
@@ -27,6 +29,16 @@ class SeatController extends ChangeNotifier {
       context,
       MaterialPageRoute(
         builder: (context) => Seats(userId: userId),
+      ),
+    );
+  }
+
+  void navigateToSeatsDesktop(BuildContext context) {
+    getuserId();
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SeatsDesktop(userId: userId),
       ),
     );
   }
@@ -137,6 +149,9 @@ class SeatController extends ChangeNotifier {
           );
         },
       );
+
+      NotificationService().scheduleEventNotification(eventId);
+      
     } catch (error) {
       showDialog(
         context: context,
