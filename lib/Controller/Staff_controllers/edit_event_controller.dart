@@ -320,6 +320,29 @@ class EditEventsController extends ChangeNotifier {
 
   Future<void> updateEvent(BuildContext context) async {
     try {
+      showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: Colors.white,
+            content: Container(
+              padding: const EdgeInsets.all(16),
+              child: const Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CircularProgressIndicator(),
+                  SizedBox(height: 16),
+                  Text(
+                    "Updateing...",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      );
       if (selectedStartDateTime != null && selectedEndDateTime != null) {
         Timestamp startdate = Timestamp.fromDate(selectedStartDateTime);
         Timestamp enddate = Timestamp.fromDate(selectedEndDateTime);
@@ -346,7 +369,9 @@ class EditEventsController extends ChangeNotifier {
               actions: [
                 TextButton(
                   onPressed: () {
-                    Navigator.popUntil(context, (route) => route.isFirst);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
                   },
                   child: const Text('OK'),
                 ),
@@ -365,6 +390,7 @@ class EditEventsController extends ChangeNotifier {
             actions: [
               TextButton(
                 onPressed: () {
+                  Navigator.pop(context);
                   Navigator.pop(context);
                 },
                 child: const Text('OK'),
@@ -424,36 +450,37 @@ class EditEventsController extends ChangeNotifier {
         .update({'speakerRefs': speakerRefs});
   }
 
-  Future<void> removeSpeakerFromFirebase(int index, String speakerRef,) async {
-  // Get references to the Event and Speaker documents
-  final eventReference = FirebaseFirestore.instance.collection('Events').doc(id);
-  final speakerReference = FirebaseFirestore.instance.collection('Speakers').doc(speakerRef);
+  Future<void> removeSpeakerFromFirebase(
+    int index,
+    String speakerRef,
+  ) async {
+    // Get references to the Event and Speaker documents
+    final eventReference =
+        FirebaseFirestore.instance.collection('Events').doc(id);
+    final speakerReference =
+        FirebaseFirestore.instance.collection('Speakers').doc(speakerRef);
 
+    // Remove the speaker from the Event
+    eventReference.update({
+      'speakerRefs': FieldValue.arrayRemove([speakerRef]),
+    });
 
-  // Remove the speaker from the Event
-  eventReference.update({
-    'speakerRefs': FieldValue.arrayRemove([speakerRef]),
-  });
+    // Remove the event from the Speaker
+    speakerReference.update({
+      'eventRefs': FieldValue.arrayRemove([id]),
+    });
 
-  // Remove the event from the Speaker
-  speakerReference.update( {
-    'eventRefs': FieldValue.arrayRemove([id]),
-  });
+    // Check if `eventRefs` in the speaker document is empty
+    final speakerDoc = await speakerReference.get();
+    final eventRefs = speakerDoc['eventRefs'] as List<dynamic>?;
 
+    if (eventRefs == null || eventRefs.isEmpty) {
+      // If `eventRefs` is empty, delete the Speaker document
+      await speakerReference.delete();
+    }
 
-  // Check if `eventRefs` in the speaker document is empty
-  final speakerDoc = await speakerReference.get();
-  final eventRefs = speakerDoc['eventRefs'] as List<dynamic>?;
-
-  if (eventRefs == null || eventRefs.isEmpty) {
-    // If `eventRefs` is empty, delete the Speaker document
-    await speakerReference.delete();
+    // Remove the speaker from your local list and notify listeners
+    speakersData.removeAt(index);
+    notifyListeners(); // Notify that the list has changed
   }
-
-  // Remove the speaker from your local list and notify listeners
-  speakersData.removeAt(index);
-  notifyListeners(); // Notify that the list has changed
-}
-
-
 }
