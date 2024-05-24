@@ -23,7 +23,7 @@ class SeatController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void navigateToSeats(BuildContext context) {
+  void navigateToSeat(BuildContext context) {
     getuserId();
     Navigator.push(
       context,
@@ -33,7 +33,7 @@ class SeatController extends ChangeNotifier {
     );
   }
 
-  void navigateToSeatsDesktop(BuildContext context) {
+  void navigateToSeatDesktop(BuildContext context) {
     getuserId();
     Navigator.push(
       context,

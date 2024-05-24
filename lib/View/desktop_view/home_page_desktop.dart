@@ -91,7 +91,7 @@ class _HomePageDesktopState extends State<HomePageDesktop> {
                     icon: Icons.chair,
                     text: "Seat",
                     ontap: () {
-                      controller.navigateToSeatsDesktop(context);
+                      controller.navigateToSeatDesktop(context);
                     },
                   ),
                   Box(

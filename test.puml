@@ -1,0 +1,738 @@
+@startuml
+set namespaceSeparator ::
+
+class "e_qiu_guidance::Controller::calendar_controller.dart::CalendarController" {
+  +DateTime today
+  +Map<DateTime, List<Event>> events
+  +void daySelected()
+  +List<dynamic> getEventsForTheDay()
+  +int getHashCode()
+  +void loadFirestoreEvents()
+}
+
+"flutter::src::foundation::change_notifier.dart::ChangeNotifier" <|-- "e_qiu_guidance::Controller::calendar_controller.dart::CalendarController"
+
+class "e_qiu_guidance::Controller::dbcontroller.dart::Db" {
+  -FirebaseAuth _auth
+  -FirebaseFirestore _fs
+  -FirebaseStorage _storage
+  +dynamic addDocument()
+  +Stream<QuerySnapshot<Object?>> getDocStreamWhere()
+  +Stream<QuerySnapshot<Object?>>? getDocumentsStream()
+  +Stream<List<T>> getDocumentsAsModelsStream()
+  +Stream<T?> getDocumentAsModelStream()
+  +dynamic updateDocument()
+  +dynamic deleteDocument()
+  +dynamic updateWhere()
+  +dynamic deleteWhere()
+  +dynamic register()
+  +dynamic login()
+  +dynamic signOut()
+  +dynamic uploadImageWeb()
+}
+
+"e_qiu_guidance::Controller::dbcontroller.dart::Db" o-- "firebase_auth::firebase_auth.dart::FirebaseAuth"
+"e_qiu_guidance::Controller::dbcontroller.dart::Db" o-- "cloud_firestore::cloud_firestore.dart::FirebaseFirestore"
+"e_qiu_guidance::Controller::dbcontroller.dart::Db" o-- "firebase_storage::firebase_storage.dart::FirebaseStorage"
+
+class "e_qiu_guidance::Controller::event_search_controller.dart::EventSearchController" {
+  +List<Event> filteredEvents
+  +String query
+  +List<Event> filterEvents()
+  +void updateQuery()
+}
+
+"flutter::src::foundation::change_notifier.dart::ChangeNotifier" <|-- "e_qiu_guidance::Controller::event_search_controller.dart::EventSearchController"
+
+class "e_qiu_guidance::Controller::fetch_controller.dart::FetchController" {
+  +Stream<List<Event>> fetchEvents()
+  +Stream<Event?> fetchEvent()
+  +Stream<List<Event>> fetchRelatedEvents()
+  +Stream<List<Speaker>> fetchSpeakers()
+  +Stream<Speaker?> fetchSpeaker()
+  +Stream<List<Speaker>> fetchRelatedSpeakers()
+  +Stream<List<Event>> fetchReservations()
+  +dynamic getReservedSeats()
+  +String formatDateTime()
+  +String formatDate()
+  +String formatTime()
+}
+
+"flutter::src::foundation::change_notifier.dart::ChangeNotifier" <|-- "e_qiu_guidance::Controller::fetch_controller.dart::FetchController"
+
+class "e_qiu_guidance::Controller::login_controller.dart::LoginController" {
+  +String email
+  +String password
+  {static} +String isLoggedInKey
+  +void setEmail()
+  +void setPassword()
+  +dynamic saveLoginStatus()
+  +dynamic getLoginStatus()
+  +void autoLogin()
+  +dynamic login()
+  +dynamic signInAnonymously()
+}
+
+"flutter::src::foundation::change_notifier.dart::ChangeNotifier" <|-- "e_qiu_guidance::Controller::login_controller.dart::LoginController"
+
+class "e_qiu_guidance::Controller::logout_controller.dart::LogoutController" {
+  +void logout()
+}
+
+"flutter::src::foundation::change_notifier.dart::ChangeNotifier" <|-- "e_qiu_guidance::Controller::logout_controller.dart::LogoutController"
+
+class "e_qiu_guidance::Controller::notifi_service.dart::NotificationService" {
+  +FlutterLocalNotificationsPlugin notificationsPlugin
+  +int globalNotificationId
+  +dynamic initNotification()
+  +dynamic notificationDetails()
+  +dynamic scheduleNotification()
+  +dynamic scheduleEventNotification()
+}
+
+"e_qiu_guidance::Controller::notifi_service.dart::NotificationService" o-- "flutter_local_notifications::src::flutter_local_notifications_plugin.dart::FlutterLocalNotificationsPlugin"
+
+class "e_qiu_guidance::Controller::seat_controller.dart::SeatController" {
+  +bool isReserved
+  +String userId
+  +void getuserId()
+  +void navigateToSeats()
+  +void navigateToSeatsDesktop()
+  +dynamic doesCollectionExists()
+  +dynamic checkReservationStatus()
+  +dynamic reserveSeat()
+}
+
+"flutter::src::foundation::change_notifier.dart::ChangeNotifier" <|-- "e_qiu_guidance::Controller::seat_controller.dart::SeatController"
+
+class "e_qiu_guidance::Controller::speaker_search_controller.dart::SpeakerSearchController" {
+  +List<Speaker> filteredSpeakers
+  +String query
+  +List<Speaker> filterSpeakers()
+  +void updateQuery()
+}
+
+"flutter::src::foundation::change_notifier.dart::ChangeNotifier" <|-- "e_qiu_guidance::Controller::speaker_search_controller.dart::SpeakerSearchController"
+
+class "e_qiu_guidance::Controller::Staff_controllers::add_events_controller.dart::AddEventController" {
+  +String title
+  +String description
+  +String selectedRadio
+  +String venue
+  +DateTime selectedStartDateTime
+  +DateTime selectedEndDateTime
+  +List<Map<String, String>> speakersData
+  +int availableSeats
+  +int reservedSeats
+  +String? selectedEventType
+  +List<String> eventTypes
+  +ScrollController scrollController
+  +void setTitle()
+  +void setDescription()
+  +void setType()
+  +void setSelectedRadio()
+  +void setVenue()
+  +void pickStartTime()
+  +void pickStartDate()
+  +void pickEndTime()
+  +void pickEndDate()
+  +String calculateEventDuration()
+  +void incrementNumberOfFields()
+  +void decrementNumberOfFields()
+  +void setSpeaker()
+  +void setSpeakerDescription()
+  +void setAvailableSeats()
+  +void setReservedSeats()
+  +String? validateEventTitle()
+  +String? validateEventDescription()
+  +String? validateEventType()
+  +String? validateEventVenue()
+  +String? validateEventSpeaker()
+  +String? validateEventSpeakerDescription()
+  +dynamic addEvent()
+  +dynamic addSpeakers()
+}
+
+"e_qiu_guidance::Controller::Staff_controllers::add_events_controller.dart::AddEventController" o-- "flutter::src::widgets::scroll_controller.dart::ScrollController"
+"flutter::src::foundation::change_notifier.dart::ChangeNotifier" <|-- "e_qiu_guidance::Controller::Staff_controllers::add_events_controller.dart::AddEventController"
+
+class "e_qiu_guidance::Controller::Staff_controllers::drawer_controller.dart::StaffDrawerController" {
+  -int _selectedIndex
+  +LogoutController logoutcontroller
+  +int selectedIndex
+  +void setIndex()
+}
+
+"e_qiu_guidance::Controller::Staff_controllers::drawer_controller.dart::StaffDrawerController" o-- "e_qiu_guidance::Controller::logout_controller.dart::LogoutController"
+"flutter::src::foundation::change_notifier.dart::ChangeNotifier" <|-- "e_qiu_guidance::Controller::Staff_controllers::drawer_controller.dart::StaffDrawerController"
+
+class "e_qiu_guidance::Controller::Staff_controllers::edit_event_controller.dart::EditEventsController" {
+  +String id
+  +String title
+  +String description
+  +String type
+  +String selectedRadio
+  +String venue
+  +List<Map<String, dynamic>> speakersData
+  +DocumentReference<Object?>? eventRef
+  +DateTime selectedStartDateTime
+  +DateTime selectedEndDateTime
+  +List<String> eventTypes
+  +dynamic fetchRelatedSpeakers()
+  +void navigateToEdit()
+  +void setTitle()
+  +void setDescription()
+  +void setType()
+  +void setSelectedRadio()
+  +void setVenue()
+  +void incrementNumberOfFields()
+  +void decrementNumberOfFields()
+  +void setSpeaker()
+  +void setSpeakerDescription()
+  +void pickStartTime()
+  +void pickStartDate()
+  +void pickEndTime()
+  +void pickEndDate()
+  +String calculateEventDuration()
+  +String? validateEventTitle()
+  +String? validateEventDescription()
+  +String? validateEventType()
+  +String? validateEventVenue()
+  +String? validateEventSpeaker()
+  +String? validateEventSpeakerDescription()
+  +dynamic updateEvent()
+  +dynamic updateSpeakers()
+  +dynamic removeSpeakerFromFirebase()
+}
+
+"e_qiu_guidance::Controller::Staff_controllers::edit_event_controller.dart::EditEventsController" o-- "cloud_firestore::cloud_firestore.dart::DocumentReference<Object>"
+"flutter::src::foundation::change_notifier.dart::ChangeNotifier" <|-- "e_qiu_guidance::Controller::Staff_controllers::edit_event_controller.dart::EditEventsController"
+
+class "e_qiu_guidance::Controller::Staff_controllers::manage_events_controller.dart::ManageEventsController" {
+  +dynamic deleteEvent()
+}
+
+"flutter::src::foundation::change_notifier.dart::ChangeNotifier" <|-- "e_qiu_guidance::Controller::Staff_controllers::manage_events_controller.dart::ManageEventsController"
+
+class "e_qiu_guidance::Controller::Staff_controllers::register_controller.dart::Register" {
+  +String username
+  +String email
+  +String password
+  +void setUserName()
+  +void setEmail()
+  +void setPassword()
+  +String? validateUserName()
+  +String? validateEmail()
+  +String? validatePassword()
+  +dynamic registerStaff()
+  +dynamic registerStudent()
+}
+
+"flutter::src::foundation::change_notifier.dart::ChangeNotifier" <|-- "e_qiu_guidance::Controller::Staff_controllers::register_controller.dart::Register"
+
+class "e_qiu_guidance::firebase_options.dart::DefaultFirebaseOptions" {
+  {static} +FirebaseOptions web
+  {static} +FirebaseOptions android
+  {static} +FirebaseOptions ios
+  {static} +FirebaseOptions macos
+  {static} +FirebaseOptions currentPlatform
+}
+
+"e_qiu_guidance::firebase_options.dart::DefaultFirebaseOptions" o-- "firebase_core_platform_interface::firebase_core_platform_interface.dart::FirebaseOptions"
+
+class "e_qiu_guidance::main.dart::MyApp" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "e_qiu_guidance::main.dart::MyApp"
+
+class "e_qiu_guidance::Model::events.dart::Event" {
+  +String id
+  +String title
+  +String description
+  +String type
+  +String visibility
+  +String venue
+  +Timestamp startdate
+  +Timestamp enddate
+  +String duration
+  +List<dynamic> speakerRefs
+  +int availableSeats
+  +int reservedSeats
+  +int seatCount
+  +DateTime toDateTimeObject()
+  +DateTime toDateTimeObject1()
+}
+
+"e_qiu_guidance::Model::events.dart::Event" o-- "cloud_firestore_platform_interface::src::timestamp.dart::Timestamp"
+
+class "e_qiu_guidance::Model::speaker.dart::Speaker" {
+  +String id
+  +List<dynamic> eventRef
+  +String name
+  +String description
+  +Map<String, dynamic> toMap()
+}
+
+class "e_qiu_guidance::responsive::responsive_layout.dart::ResponsiveLayout" {
+  +Widget mobileBody
+  +Widget desktopBody
+  +Widget build()
+}
+
+"e_qiu_guidance::responsive::responsive_layout.dart::ResponsiveLayout" o-- "flutter::src::widgets::framework.dart::Widget"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "e_qiu_guidance::responsive::responsive_layout.dart::ResponsiveLayout"
+
+class "e_qiu_guidance::View::desktop_view::events_desktop.dart::EventsDesktop" {
+  +State<EventsDesktop> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "e_qiu_guidance::View::desktop_view::events_desktop.dart::EventsDesktop"
+
+class "e_qiu_guidance::View::desktop_view::events_desktop.dart::_EventsDesktopState" {
+  +FetchController controller
+  +EventSearchController search
+  +bool controllerInitialized
+  +void didChangeDependencies()
+  +Widget build()
+  +void dispose()
+}
+
+"e_qiu_guidance::View::desktop_view::events_desktop.dart::_EventsDesktopState" o-- "e_qiu_guidance::Controller::fetch_controller.dart::FetchController"
+"e_qiu_guidance::View::desktop_view::events_desktop.dart::_EventsDesktopState" o-- "e_qiu_guidance::Controller::event_search_controller.dart::EventSearchController"
+"flutter::src::widgets::framework.dart::State" <|-- "e_qiu_guidance::View::desktop_view::events_desktop.dart::_EventsDesktopState"
+
+class "e_qiu_guidance::View::desktop_view::home_page_desktop.dart::HomePageDesktop" {
+  +State<HomePageDesktop> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "e_qiu_guidance::View::desktop_view::home_page_desktop.dart::HomePageDesktop"
+
+class "e_qiu_guidance::View::desktop_view::home_page_desktop.dart::_HomePageDesktopState" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "e_qiu_guidance::View::desktop_view::home_page_desktop.dart::_HomePageDesktopState"
+
+class "e_qiu_guidance::View::desktop_view::login_desktop.dart::LoginDesktop" {
+  +State<LoginDesktop> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "e_qiu_guidance::View::desktop_view::login_desktop.dart::LoginDesktop"
+
+class "e_qiu_guidance::View::desktop_view::login_desktop.dart::_LoginDesktopState" {
+  +void initState()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "e_qiu_guidance::View::desktop_view::login_desktop.dart::_LoginDesktopState"
+
+class "e_qiu_guidance::View::desktop_view::reserved_seats_desktop.dart::SeatsDesktop" {
+  +String userId
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "e_qiu_guidance::View::desktop_view::reserved_seats_desktop.dart::SeatsDesktop"
+
+class "e_qiu_guidance::View::desktop_view::speakers_desktop.dart::SpeakersDesktop" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "e_qiu_guidance::View::desktop_view::speakers_desktop.dart::SpeakersDesktop"
+
+class "e_qiu_guidance::View::desktop_view::staff%20view::add_event_desktop.dart::AddEventsDesktop" {
+  +State<AddEventsDesktop> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "e_qiu_guidance::View::desktop_view::staff%20view::add_event_desktop.dart::AddEventsDesktop"
+
+class "e_qiu_guidance::View::desktop_view::staff%20view::add_event_desktop.dart::_AddEventsDesktopState" {
+  +GlobalKey<FormState> addEventKey
+  +void dispose()
+  +Widget build()
+}
+
+"e_qiu_guidance::View::desktop_view::staff%20view::add_event_desktop.dart::_AddEventsDesktopState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"flutter::src::widgets::framework.dart::State" <|-- "e_qiu_guidance::View::desktop_view::staff%20view::add_event_desktop.dart::_AddEventsDesktopState"
+
+class "e_qiu_guidance::View::desktop_view::staff%20view::edit_event_desktop.dart::EditEventDesktop" {
+  +State<EditEventDesktop> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "e_qiu_guidance::View::desktop_view::staff%20view::edit_event_desktop.dart::EditEventDesktop"
+
+class "e_qiu_guidance::View::desktop_view::staff%20view::edit_event_desktop.dart::_EditEventDesktopState" {
+  +EditEventsController controller
+  +bool controllerInitialized
+  +void didChangeDependencies()
+  +Widget build()
+  +void dispose()
+}
+
+"e_qiu_guidance::View::desktop_view::staff%20view::edit_event_desktop.dart::_EditEventDesktopState" o-- "e_qiu_guidance::Controller::Staff_controllers::edit_event_controller.dart::EditEventsController"
+"flutter::src::widgets::framework.dart::State" <|-- "e_qiu_guidance::View::desktop_view::staff%20view::edit_event_desktop.dart::_EditEventDesktopState"
+
+class "e_qiu_guidance::View::desktop_view::staff%20view::manage_events_desktop.dart::ManageEventsDesktop" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "e_qiu_guidance::View::desktop_view::staff%20view::manage_events_desktop.dart::ManageEventsDesktop"
+
+class "e_qiu_guidance::View::desktop_view::staff%20view::register_staff_desktop.dart::RegisterStaffDesktop" {
+  +State<RegisterStaffDesktop> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "e_qiu_guidance::View::desktop_view::staff%20view::register_staff_desktop.dart::RegisterStaffDesktop"
+
+class "e_qiu_guidance::View::desktop_view::staff%20view::register_staff_desktop.dart::_RegisterStaffDesktopState" {
+  +GlobalKey<FormState> registerStaffKey
+  +Widget build()
+}
+
+"e_qiu_guidance::View::desktop_view::staff%20view::register_staff_desktop.dart::_RegisterStaffDesktopState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"flutter::src::widgets::framework.dart::State" <|-- "e_qiu_guidance::View::desktop_view::staff%20view::register_staff_desktop.dart::_RegisterStaffDesktopState"
+
+class "e_qiu_guidance::View::desktop_view::staff%20view::register_student_desktop.dart::RegisterStudentDesktop" {
+  +State<RegisterStudentDesktop> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "e_qiu_guidance::View::desktop_view::staff%20view::register_student_desktop.dart::RegisterStudentDesktop"
+
+class "e_qiu_guidance::View::desktop_view::staff%20view::register_student_desktop.dart::_RegisterStudentDesktopState" {
+  +GlobalKey<FormState> registerStudentKey
+  +Widget build()
+}
+
+"e_qiu_guidance::View::desktop_view::staff%20view::register_student_desktop.dart::_RegisterStudentDesktopState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"flutter::src::widgets::framework.dart::State" <|-- "e_qiu_guidance::View::desktop_view::staff%20view::register_student_desktop.dart::_RegisterStudentDesktopState"
+
+class "e_qiu_guidance::View::desktop_view::view_seat_desktop.dart::ViewSeatDesktop" {
+  +String userId
+  +String eventId
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "e_qiu_guidance::View::desktop_view::view_seat_desktop.dart::ViewSeatDesktop"
+
+class "e_qiu_guidance::View::mobile_view::events.dart::Events" {
+  +State<Events> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "e_qiu_guidance::View::mobile_view::events.dart::Events"
+
+class "e_qiu_guidance::View::mobile_view::events.dart::_EventsState" {
+  +FetchController controller
+  +EventSearchController search
+  +bool controllerInitialized
+  +void didChangeDependencies()
+  +Widget build()
+  +void dispose()
+}
+
+"e_qiu_guidance::View::mobile_view::events.dart::_EventsState" o-- "e_qiu_guidance::Controller::fetch_controller.dart::FetchController"
+"e_qiu_guidance::View::mobile_view::events.dart::_EventsState" o-- "e_qiu_guidance::Controller::event_search_controller.dart::EventSearchController"
+"flutter::src::widgets::framework.dart::State" <|-- "e_qiu_guidance::View::mobile_view::events.dart::_EventsState"
+
+class "e_qiu_guidance::View::mobile_view::home_page.dart::HomePage" {
+  +State<HomePage> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "e_qiu_guidance::View::mobile_view::home_page.dart::HomePage"
+
+class "e_qiu_guidance::View::mobile_view::home_page.dart::_HomePageState" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "e_qiu_guidance::View::mobile_view::home_page.dart::_HomePageState"
+
+class "e_qiu_guidance::View::mobile_view::login.dart::Login" {
+  +State<Login> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "e_qiu_guidance::View::mobile_view::login.dart::Login"
+
+class "e_qiu_guidance::View::mobile_view::login.dart::_LoginState" {
+  +void initState()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "e_qiu_guidance::View::mobile_view::login.dart::_LoginState"
+
+class "e_qiu_guidance::View::mobile_view::reserved_seats.dart::Seats" {
+  +String userId
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "e_qiu_guidance::View::mobile_view::reserved_seats.dart::Seats"
+
+class "e_qiu_guidance::View::mobile_view::speakers.dart::Speakers" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "e_qiu_guidance::View::mobile_view::speakers.dart::Speakers"
+
+class "e_qiu_guidance::View::mobile_view::staff%20view::add_events.dart::AddEvents" {
+  +State<AddEvents> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "e_qiu_guidance::View::mobile_view::staff%20view::add_events.dart::AddEvents"
+
+class "e_qiu_guidance::View::mobile_view::staff%20view::add_events.dart::_AddEventsState" {
+  +GlobalKey<FormState> addEventKey
+  +void dispose()
+  +Widget build()
+}
+
+"e_qiu_guidance::View::mobile_view::staff%20view::add_events.dart::_AddEventsState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"flutter::src::widgets::framework.dart::State" <|-- "e_qiu_guidance::View::mobile_view::staff%20view::add_events.dart::_AddEventsState"
+
+class "e_qiu_guidance::View::mobile_view::staff%20view::edit_event.dart::EditEvent" {
+  +State<EditEvent> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "e_qiu_guidance::View::mobile_view::staff%20view::edit_event.dart::EditEvent"
+
+class "e_qiu_guidance::View::mobile_view::staff%20view::edit_event.dart::_EditEventState" {
+  +EditEventsController controller
+  +bool controllerInitialized
+  +void didChangeDependencies()
+  +Widget build()
+  +void dispose()
+}
+
+"e_qiu_guidance::View::mobile_view::staff%20view::edit_event.dart::_EditEventState" o-- "e_qiu_guidance::Controller::Staff_controllers::edit_event_controller.dart::EditEventsController"
+"flutter::src::widgets::framework.dart::State" <|-- "e_qiu_guidance::View::mobile_view::staff%20view::edit_event.dart::_EditEventState"
+
+class "e_qiu_guidance::View::mobile_view::staff%20view::manage_events.dart::ManageEvents" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "e_qiu_guidance::View::mobile_view::staff%20view::manage_events.dart::ManageEvents"
+
+class "e_qiu_guidance::View::mobile_view::staff%20view::register_staff.dart::RegisterStaff" {
+  +State<RegisterStaff> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "e_qiu_guidance::View::mobile_view::staff%20view::register_staff.dart::RegisterStaff"
+
+class "e_qiu_guidance::View::mobile_view::staff%20view::register_staff.dart::_RegisterStaffState" {
+  +GlobalKey<FormState> registerStaffKey
+  +Widget build()
+}
+
+"e_qiu_guidance::View::mobile_view::staff%20view::register_staff.dart::_RegisterStaffState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"flutter::src::widgets::framework.dart::State" <|-- "e_qiu_guidance::View::mobile_view::staff%20view::register_staff.dart::_RegisterStaffState"
+
+class "e_qiu_guidance::View::mobile_view::staff%20view::register_student.dart::RegisterStudent" {
+  +State<RegisterStudent> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "e_qiu_guidance::View::mobile_view::staff%20view::register_student.dart::RegisterStudent"
+
+class "e_qiu_guidance::View::mobile_view::staff%20view::register_student.dart::_RegisterStudentState" {
+  +GlobalKey<FormState> registerStudentKey
+  +Widget build()
+}
+
+"e_qiu_guidance::View::mobile_view::staff%20view::register_student.dart::_RegisterStudentState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"flutter::src::widgets::framework.dart::State" <|-- "e_qiu_guidance::View::mobile_view::staff%20view::register_student.dart::_RegisterStudentState"
+
+class "e_qiu_guidance::View::mobile_view::staff%20view::view_event.dart::ViewEvent" {
+  +String id
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "e_qiu_guidance::View::mobile_view::staff%20view::view_event.dart::ViewEvent"
+
+class "e_qiu_guidance::View::mobile_view::view_calendar.dart::ViewCalendar" {
+  +State<ViewCalendar> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "e_qiu_guidance::View::mobile_view::view_calendar.dart::ViewCalendar"
+
+class "e_qiu_guidance::View::mobile_view::view_calendar.dart::_ViewCalendarState" {
+  +void initState()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "e_qiu_guidance::View::mobile_view::view_calendar.dart::_ViewCalendarState"
+
+class "e_qiu_guidance::View::mobile_view::view_event.dart::ViewEvents" {
+  +String id
+  +State<ViewEvents> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "e_qiu_guidance::View::mobile_view::view_event.dart::ViewEvents"
+
+class "e_qiu_guidance::View::mobile_view::view_event.dart::_ViewEventsState" {
+  +void initState()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "e_qiu_guidance::View::mobile_view::view_event.dart::_ViewEventsState"
+
+class "e_qiu_guidance::View::mobile_view::view_map.dart::ViewMap" {
+  +State<ViewMap> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "e_qiu_guidance::View::mobile_view::view_map.dart::ViewMap"
+
+class "e_qiu_guidance::View::mobile_view::view_map.dart::_ViewMapState" {
+  +dynamic reloadMenu()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "e_qiu_guidance::View::mobile_view::view_map.dart::_ViewMapState"
+
+class "e_qiu_guidance::View::mobile_view::view_seat.dart::ViewSeat" {
+  +String userId
+  +String eventId
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "e_qiu_guidance::View::mobile_view::view_seat.dart::ViewSeat"
+
+class "e_qiu_guidance::View::mobile_view::view_speaker.dart::ViewSpeaker" {
+  +String id
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "e_qiu_guidance::View::mobile_view::view_speaker.dart::ViewSpeaker"
+
+class "e_qiu_guidance::Widgets::desktop_widgets::button_desktop.dart::BtnDesktop" {
+  +String text
+  +void Function() onPressed
+  +double? fontSize
+  +bool isDisabled
+  +Widget build()
+}
+
+"e_qiu_guidance::Widgets::desktop_widgets::button_desktop.dart::BtnDesktop" o-- "dart::ui::void Function()"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "e_qiu_guidance::Widgets::desktop_widgets::button_desktop.dart::BtnDesktop"
+
+class "e_qiu_guidance::Widgets::desktop_widgets::navbar.dart::NavBar" {
+  +LogoutController logoutcontroller
+  +Widget build()
+}
+
+"e_qiu_guidance::Widgets::desktop_widgets::navbar.dart::NavBar" o-- "e_qiu_guidance::Controller::logout_controller.dart::LogoutController"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "e_qiu_guidance::Widgets::desktop_widgets::navbar.dart::NavBar"
+
+class "e_qiu_guidance::Widgets::desktop_widgets::outlined_button_desktop.dart::OutlinedBtnDesktop" {
+  +String text
+  +void Function() onPressed
+  +double? fontsize
+  +Widget build()
+}
+
+"e_qiu_guidance::Widgets::desktop_widgets::outlined_button_desktop.dart::OutlinedBtnDesktop" o-- "dart::ui::void Function()"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "e_qiu_guidance::Widgets::desktop_widgets::outlined_button_desktop.dart::OutlinedBtnDesktop"
+
+class "e_qiu_guidance::Widgets::desktop_widgets::textfield_desktop.dart::CustomTextFieldDesktop" {
+  +String? hint
+  +String? label
+  +String? initialValue
+  +void Function(String)? onChanged
+  +bool? obscureText
+  +TextInputType? keyboard
+  +TextEditingController? controller
+  +String? Function(String?)? validator
+  +int? maxLength
+  +int? maxLine
+  +void Function(String)? onSubmitted
+  +Widget build()
+}
+
+"e_qiu_guidance::Widgets::desktop_widgets::textfield_desktop.dart::CustomTextFieldDesktop" o-- "null::void Function(String)"
+"e_qiu_guidance::Widgets::desktop_widgets::textfield_desktop.dart::CustomTextFieldDesktop" o-- "flutter::src::services::text_input.dart::TextInputType"
+"e_qiu_guidance::Widgets::desktop_widgets::textfield_desktop.dart::CustomTextFieldDesktop" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"e_qiu_guidance::Widgets::desktop_widgets::textfield_desktop.dart::CustomTextFieldDesktop" o-- "null::String Function(String)"
+"e_qiu_guidance::Widgets::desktop_widgets::textfield_desktop.dart::CustomTextFieldDesktop" o-- "flutter::src::foundation::basic_types.dart::void Function(String)"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "e_qiu_guidance::Widgets::desktop_widgets::textfield_desktop.dart::CustomTextFieldDesktop"
+
+class "e_qiu_guidance::Widgets::mobile_widgets::box.dart::Box" {
+  +IconData icon
+  +String text
+  +void Function()? ontap
+  +Widget build()
+}
+
+"e_qiu_guidance::Widgets::mobile_widgets::box.dart::Box" o-- "flutter::src::widgets::icon_data.dart::IconData"
+"e_qiu_guidance::Widgets::mobile_widgets::box.dart::Box" o-- "dart::ui::void Function()"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "e_qiu_guidance::Widgets::mobile_widgets::box.dart::Box"
+
+class "e_qiu_guidance::Widgets::mobile_widgets::button.dart::Btn" {
+  +String text
+  +void Function() onPressed
+  +double? fontsize
+  +bool isDisabled
+  +Widget build()
+}
+
+"e_qiu_guidance::Widgets::mobile_widgets::button.dart::Btn" o-- "dart::ui::void Function()"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "e_qiu_guidance::Widgets::mobile_widgets::button.dart::Btn"
+
+class "e_qiu_guidance::Widgets::mobile_widgets::drawer.dart::StaffDrawer" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "e_qiu_guidance::Widgets::mobile_widgets::drawer.dart::StaffDrawer"
+
+class "e_qiu_guidance::Widgets::mobile_widgets::outlined_button.dart::OutlinedBtn" {
+  +String text
+  +void Function() onPressed
+  +double? fontsize
+  +Widget build()
+}
+
+"e_qiu_guidance::Widgets::mobile_widgets::outlined_button.dart::OutlinedBtn" o-- "dart::ui::void Function()"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "e_qiu_guidance::Widgets::mobile_widgets::outlined_button.dart::OutlinedBtn"
+
+class "e_qiu_guidance::Widgets::mobile_widgets::search_field.dart::SearchField" {
+  +String label
+  +void Function(String) onChanged
+  +Widget build()
+}
+
+"e_qiu_guidance::Widgets::mobile_widgets::search_field.dart::SearchField" o-- "null::void Function(String)"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "e_qiu_guidance::Widgets::mobile_widgets::search_field.dart::SearchField"
+
+class "e_qiu_guidance::Widgets::mobile_widgets::textfield.dart::CustomTextField" {
+  +String? hint
+  +String? label
+  +String? initialValue
+  +void Function(String)? onChanged
+  +bool? obscureText
+  +TextInputType? keyboard
+  +TextEditingController? controller
+  +String? Function(String?)? validator
+  +int? maxLength
+  +int? maxLine
+  +void Function(String)? onSubmitted
+  +Widget build()
+}
+
+"e_qiu_guidance::Widgets::mobile_widgets::textfield.dart::CustomTextField" o-- "null::void Function(String)"
+"e_qiu_guidance::Widgets::mobile_widgets::textfield.dart::CustomTextField" o-- "flutter::src::services::text_input.dart::TextInputType"
+"e_qiu_guidance::Widgets::mobile_widgets::textfield.dart::CustomTextField" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"e_qiu_guidance::Widgets::mobile_widgets::textfield.dart::CustomTextField" o-- "null::String Function(String)"
+"e_qiu_guidance::Widgets::mobile_widgets::textfield.dart::CustomTextField" o-- "flutter::src::foundation::basic_types.dart::void Function(String)"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "e_qiu_guidance::Widgets::mobile_widgets::textfield.dart::CustomTextField"
+
+class "e_qiu_guidance::Widgets::mobile_widgets::tile_text.dart::CustomTile" {
+  +String label
+  +String value
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "e_qiu_guidance::Widgets::mobile_widgets::tile_text.dart::CustomTile"
+
+class "e_qiu_guidance::Widgets::mobile_widgets::tile_text.dart::CustomText" {
+  +String value
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "e_qiu_guidance::Widgets::mobile_widgets::tile_text.dart::CustomText"
+
+
+@enduml

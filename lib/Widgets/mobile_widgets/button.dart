@@ -5,7 +5,7 @@ class Btn extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
   final double? fontsize;
-  final bool isDisabled; // Add this property
+  final bool isDisabled;
   const Btn({
     super.key,
     this.fontsize,
