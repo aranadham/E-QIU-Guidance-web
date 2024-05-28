@@ -9,7 +9,6 @@ class Register extends ChangeNotifier {
   String email = "";
   String password = "";
 
-
   void setUserName(String value) {
     username = value;
     notifyListeners();
@@ -33,7 +32,8 @@ class Register extends ChangeNotifier {
   }
 
   String? validateEmail(String? value) {
-    if (value == null || !value.contains('@')) {
+    if (value == null ||
+        !RegExp(r'^[a-zA-Z0-9._%+-]+@uniq\.edu\.iq$').hasMatch(value)) {
       return 'Enter a valid email address';
     }
     return null;

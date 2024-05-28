@@ -7,6 +7,7 @@ class AddEventController extends ChangeNotifier {
   String title = "";
   String description = "";
   String selectedRadio = "";
+  bool isSelected = true;
   String venue = "";
   DateTime selectedStartDateTime = DateTime.now();
   DateTime selectedEndDateTime = DateTime.now();
@@ -22,7 +23,7 @@ class AddEventController extends ChangeNotifier {
   String? selectedEventType;
 
   List<String> eventTypes = [
-    'Event Type'
+    'Event Type',
     'Seminar',
     'Workshop',
   ];
@@ -45,6 +46,7 @@ class AddEventController extends ChangeNotifier {
   }
 
   void setSelectedRadio(String value) {
+    isSelected = true;
     selectedRadio = value;
     notifyListeners();
   }
@@ -84,7 +86,7 @@ class AddEventController extends ChangeNotifier {
     showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime(2024),
+      firstDate: DateTime.now(),
       lastDate: DateTime(2030),
     ).then(
       (value) {
@@ -139,7 +141,7 @@ class AddEventController extends ChangeNotifier {
     showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime(2024),
+      firstDate: DateTime.now(),
       lastDate: DateTime(2030),
     ).then(
       (value) {
@@ -229,11 +231,9 @@ class AddEventController extends ChangeNotifier {
   }
 
   String? validateEventType(String? value) {
-    if (value!.isEmpty) {
+    if (value == null || value.isEmpty) {
       return 'Please select the event type';
-    } else if (value.length < 5 || value.length > 20) {
-      return 'Event type should be between 5 and 20 characters';
-    }else if(value == "Event Type"){
+    } else if (value == "Event Type") {
       return 'Please select the event type';
     }
     return null;
@@ -246,6 +246,15 @@ class AddEventController extends ChangeNotifier {
       return 'Event venue should be between 2 and 6 characters';
     }
     return null;
+  }
+
+  Widget? validateVisibility() {
+    return isSelected
+        ? const Text("")
+        : const Text(
+            "Please select event visibility",
+            style: TextStyle(color: Color.fromARGB(255, 172, 13, 2)),
+          );
   }
 
   String? validateEventSpeaker(String? value) {
@@ -262,6 +271,34 @@ class AddEventController extends ChangeNotifier {
       return 'Please enter the speaker description';
     } else if (value.length < 11 || value.length > 50) {
       return 'Speaker description should be between 11 and 50 characters';
+    }
+    return null;
+  }
+
+  String? validateAvailableSeats(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter a value';
+    } else {
+      int? parsedValue = int.tryParse(value);
+      if (parsedValue == null) {
+        return 'Please enter a valid integer';
+      } else if (parsedValue == 1) {
+        return 'Value should not be 1';
+      }
+    }
+    return null;
+  }
+
+  String? validateReservedSeats(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter a value';
+    } else {
+      int? parsedValue = int.tryParse(value);
+      if (parsedValue == null) {
+        return 'Please enter a valid integer';
+      } else if (parsedValue == 1) {
+        return 'Value should not be 1';
+      }
     }
     return null;
   }

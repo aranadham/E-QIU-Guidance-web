@@ -136,6 +136,7 @@ class _AddEventsState extends State<AddEvents> {
                         },
                       ),
                     ),
+                    controller.validateVisibility()!,
                     CustomTextField(
                       hint: "Event Venue",
                       onChanged: (value) => controller.setVenue(value),
@@ -254,12 +255,14 @@ class _AddEventsState extends State<AddEvents> {
                       keyboard: TextInputType.number,
                       onChanged: (value) =>
                           controller.setAvailableSeats(int.parse(value)),
+                      validator: controller.validateAvailableSeats,
                     ),
                     CustomTextField(
                       hint: "Reserved Seats",
                       keyboard: TextInputType.number,
                       onChanged: (value) =>
                           controller.setReservedSeats(int.parse(value)),
+                      validator: controller.validateReservedSeats,
                     ),
                     const SizedBox(
                       height: 20,
@@ -268,6 +271,11 @@ class _AddEventsState extends State<AddEvents> {
                       text: "Add Event",
                       fontsize: 18,
                       onPressed: () {
+                        if (controller.selectedRadio == "") {
+                          setState(() {
+                            controller.isSelected = false;
+                          });
+                        }
                         if (addEventKey.currentState?.validate() ?? false) {
                           controller.addEvent(context);
                         }

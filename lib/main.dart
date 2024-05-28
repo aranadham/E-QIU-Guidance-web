@@ -19,7 +19,6 @@ import 'package:e_qiu_guidance/View/desktop_view/login_desktop.dart';
 import 'package:e_qiu_guidance/View/mobile_view/login.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-import 'package:dcdg/dcdg.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   NotificationService().initNotification();
