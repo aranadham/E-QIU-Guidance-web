@@ -51,6 +51,28 @@ class Register extends ChangeNotifier {
   }
 
   Future<void> registerStaff(BuildContext context) async {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          content: Container(
+            padding: const EdgeInsets.all(16),
+            child: const Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CircularProgressIndicator(),
+                SizedBox(height: 16),
+                Text(
+                  "loading...",
+                  style: TextStyle(fontSize: 18),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
     try {
       UserCredential userCredential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -75,6 +97,7 @@ class Register extends ChangeNotifier {
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
+                  Navigator.pop(context);
                 },
                 child: const Text("Ok"),
               ),
@@ -93,6 +116,7 @@ class Register extends ChangeNotifier {
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
+                  Navigator.pop(context);
                 },
                 child: const Text("Ok"),
               ),
@@ -103,13 +127,45 @@ class Register extends ChangeNotifier {
     }
   }
 
-  Future<void> registerStudent(BuildContext context) async {
+  Future<void> updateDisplayName(String displayName, User user) async {
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      await user.updateDisplayName(displayName);
+    } catch (e) {
+      debugPrint('Error updating display name: $e');
+    }
+  }
+
+  Future<void> registerStudent(BuildContext context) async {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          content: Container(
+            padding: const EdgeInsets.all(16),
+            child: const Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CircularProgressIndicator(),
+                SizedBox(height: 16),
+                Text(
+                  "loading...",
+                  style: TextStyle(fontSize: 18),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+    try {
+      UserCredential userCredential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
 
+      await updateDisplayName(username, userCredential.user!);
       showDialog(
         context: context,
         builder: (context) {
@@ -119,6 +175,7 @@ class Register extends ChangeNotifier {
             actions: [
               TextButton(
                 onPressed: () {
+                  Navigator.pop(context);
                   Navigator.pop(context);
                 },
                 child: const Text("Ok"),
@@ -137,6 +194,7 @@ class Register extends ChangeNotifier {
             actions: [
               TextButton(
                 onPressed: () {
+                  Navigator.pop(context);
                   Navigator.pop(context);
                 },
                 child: const Text("Ok"),

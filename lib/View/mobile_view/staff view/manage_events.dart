@@ -5,7 +5,6 @@ import 'package:e_qiu_guidance/Controller/Staff_controllers/manage_events_contro
 import 'package:e_qiu_guidance/Controller/fetch_controller.dart';
 import 'package:e_qiu_guidance/Model/events.dart';
 import 'package:e_qiu_guidance/View/mobile_view/staff%20view/view_event.dart';
-import 'package:e_qiu_guidance/Widgets/mobile_widgets/drawer.dart';
 
 class ManageEvents extends StatelessWidget {
   const ManageEvents({super.key});
@@ -16,13 +15,7 @@ class ManageEvents extends StatelessWidget {
     final edit = Provider.of<EditEventsController>(context);
     final fetch = Provider.of<FetchController>(context);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Manage Events"),
-        centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 0, 106, 166),
-        foregroundColor: Colors.white,
-      ),
-      drawer: const StaffDrawer(),
+      
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(

@@ -33,12 +33,6 @@ class _EventsState extends State<Events> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Events"),
-        centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 0, 106, 166),
-        foregroundColor: Colors.white,
-      ),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -69,24 +63,25 @@ class _EventsState extends State<Events> {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(child: CircularProgressIndicator());
                       }
-            
+
                       if (snapshot.hasError) {
                         return const Text('No data');
                       }
-            
+
                       List<Event> events = snapshot.data ?? [];
-            
+
                       List<Event> filteredEvents =
                           search.filterEvents(events, search.query);
-            
+
                       return ListView.builder(
                         itemCount: filteredEvents.length,
                         itemBuilder: (context, index) {
                           Event event = filteredEvents[index];
                           String startDate =
                               controller.formatDateTime(event.startdate);
-            
-                          Color tileColor = tileColors[index % tileColors.length];
+
+                          Color tileColor =
+                              tileColors[index % tileColors.length];
                           return InkWell(
                             onTap: () {
                               Navigator.push(
@@ -108,18 +103,22 @@ class _EventsState extends State<Events> {
                                 ),
                                 title: Text(
                                   event.title,
-                                  style: const TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
+                                  style: const TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
                                 ),
                                 subtitle: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
                                       startDate,
-                                      style: const TextStyle(color: Colors.black),
+                                      style:
+                                          const TextStyle(color: Colors.black),
                                     ),
                                     Text(
                                       event.venue,
-                                      style: const TextStyle(color: Colors.black),
+                                      style:
+                                          const TextStyle(color: Colors.black),
                                     ),
                                   ],
                                 ),

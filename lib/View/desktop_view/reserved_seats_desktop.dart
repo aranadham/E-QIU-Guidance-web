@@ -7,8 +7,7 @@ import 'package:e_qiu_guidance/Model/events.dart';
 import 'package:e_qiu_guidance/Widgets/mobile_widgets/search_field.dart';
 
 class SeatsDesktop extends StatelessWidget {
-  final String userId;
-  const SeatsDesktop({super.key, required this.userId});
+  const SeatsDesktop({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,12 +15,6 @@ class SeatsDesktop extends StatelessWidget {
     final search = Provider.of<EventSearchController>(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Reserved Seats"),
-        centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 0, 106, 166),
-        foregroundColor: Colors.white,
-      ),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -47,7 +40,7 @@ class SeatsDesktop extends StatelessWidget {
                 ),
                 Expanded(
                   child: StreamBuilder(
-                    stream: controller.fetchReservations(userId),
+                    stream: controller.fetchReservations(),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(child: CircularProgressIndicator());
@@ -80,7 +73,7 @@ class SeatsDesktop extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => ViewSeatDesktop(
-                                    userId: userId,
+                                    userId: controller.uid,
                                     eventId: event.id,
                                   ),
                                 ),
@@ -104,7 +97,7 @@ class SeatsDesktop extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => ViewSeatDesktop(
-                                          userId: userId,
+                                          userId: controller.uid,
                                           eventId: event.id,
                                         ),
                                       ),

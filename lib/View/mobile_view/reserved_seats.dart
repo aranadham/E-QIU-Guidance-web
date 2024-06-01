@@ -7,8 +7,7 @@ import 'package:e_qiu_guidance/View/mobile_view/view_seat.dart';
 import 'package:e_qiu_guidance/Widgets/mobile_widgets/search_field.dart';
 
 class Seats extends StatelessWidget {
-  final String userId;
-  const Seats({super.key, required this.userId});
+  const Seats({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,12 +15,6 @@ class Seats extends StatelessWidget {
     final search = Provider.of<EventSearchController>(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Reserved Seats"),
-        centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 0, 106, 166),
-        foregroundColor: Colors.white,
-      ),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -47,14 +40,16 @@ class Seats extends StatelessWidget {
                 ),
                 Expanded(
                   child: StreamBuilder(
-                    stream: controller.fetchReservations(userId),
+                    stream: controller.fetchReservations(),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(child: CircularProgressIndicator());
                       }
 
                       if (snapshot.hasError) {
-                        return Text('Error: ${snapshot.error}');
+                        return const Center(
+                          child: Text('Something went wrong'),
+                        );
                       }
 
                       if (!snapshot.hasData) {
@@ -80,7 +75,7 @@ class Seats extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => ViewSeat(
-                                    userId: userId,
+                                    userId: controller.uid,
                                     eventId: event.id,
                                   ),
                                 ),
@@ -104,7 +99,7 @@ class Seats extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => ViewSeat(
-                                          userId: userId,
+                                          userId: controller.uid,
                                           eventId: event.id,
                                         ),
                                       ),

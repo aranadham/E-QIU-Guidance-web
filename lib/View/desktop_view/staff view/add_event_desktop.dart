@@ -1,5 +1,4 @@
 import 'package:e_qiu_guidance/Widgets/desktop_widgets/button_desktop.dart';
-import 'package:e_qiu_guidance/Widgets/desktop_widgets/navbar.dart';
 import 'package:e_qiu_guidance/Widgets/desktop_widgets/outlined_button_desktop.dart';
 import 'package:e_qiu_guidance/Widgets/mobile_widgets/textfield.dart';
 import 'package:e_qiu_guidance/mycolors.dart';
@@ -27,11 +26,6 @@ class _AddEventsDesktopState extends State<AddEventsDesktop> {
   Widget build(BuildContext context) {
     final controller = Provider.of<AddEventController>(context);
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: NavBar(),
-        backgroundColor: blue,
-      ),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -41,7 +35,7 @@ class _AddEventsDesktopState extends State<AddEventsDesktop> {
         child: Container(
           color: Colors.grey.withOpacity(0.9),
           child: Container(
-            margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 140),
+            margin: const EdgeInsets.symmetric(vertical: 60, horizontal: 250),
             padding: const EdgeInsets.all(10.0),
             decoration: BoxDecoration(
               color: Colors.white, // Adjust opacity as needed

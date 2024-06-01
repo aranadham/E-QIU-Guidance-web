@@ -1,13 +1,10 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_qiu_guidance/View/desktop_view/home_page_desktop.dart';
-import 'package:e_qiu_guidance/View/desktop_view/staff%20view/add_event_desktop.dart';
-import 'package:e_qiu_guidance/responsive/responsive_layout.dart';
+import 'package:e_qiu_guidance/Widgets/bottom_nav_bar_ui.dart';
+import 'package:e_qiu_guidance/Widgets/staff_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:e_qiu_guidance/View/mobile_view/home_page.dart';
-import 'package:e_qiu_guidance/View/mobile_view/staff%20view/add_events.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginController extends ChangeNotifier {
@@ -47,20 +44,14 @@ class LoginController extends ChangeNotifier {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const ResponsiveLayout(
-              mobileBody: AddEvents(),
-              desktopBody: AddEventsDesktop(),
-            ),
+            builder: (context) => const StaffNavBar(),
           ),
         );
       } else {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const ResponsiveLayout(
-              mobileBody: HomePage(),
-              desktopBody: HomePageDesktop(),
-            ),
+            builder: (context) => const BottomNavBar(),
           ),
         );
       }
@@ -118,10 +109,7 @@ class LoginController extends ChangeNotifier {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => const ResponsiveLayout(
-                  mobileBody: AddEvents(),
-                  desktopBody: AddEventsDesktop(),
-                ),
+                builder: (context) => const StaffNavBar(),
               ),
             );
             return;
@@ -134,10 +122,7 @@ class LoginController extends ChangeNotifier {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const ResponsiveLayout(
-              mobileBody: HomePage(),
-              desktopBody: HomePageDesktop(),
-            ),
+            builder: (context) => const BottomNavBar(),
           ),
         );
       }
@@ -168,13 +153,10 @@ class LoginController extends ChangeNotifier {
       String role = 'Guest';
       await saveLoginStatus(true, role);
       await FirebaseAuth.instance.signInAnonymously();
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const ResponsiveLayout(
-            mobileBody: HomePage(),
-            desktopBody: HomePageDesktop(),
-          ),
+          builder: (context) => const BottomNavBar(),
         ),
       );
     } catch (e) {

@@ -15,12 +15,6 @@ class Speakers extends StatelessWidget {
     final search = Provider.of<SpeakerSearchController>(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Speakers"),
-        centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 0, 106, 166),
-        foregroundColor: Colors.white,
-      ),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(

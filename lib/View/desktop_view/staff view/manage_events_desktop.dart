@@ -1,5 +1,3 @@
-import 'package:e_qiu_guidance/Widgets/desktop_widgets/navbar.dart';
-import 'package:e_qiu_guidance/mycolors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:e_qiu_guidance/Controller/Staff_controllers/edit_event_controller.dart';
@@ -17,11 +15,6 @@ class ManageEventsDesktop extends StatelessWidget {
     final edit = Provider.of<EditEventsController>(context);
     final fetch = Provider.of<FetchController>(context);
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: NavBar(),
-        backgroundColor: blue,
-      ),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(

@@ -1,5 +1,3 @@
-import 'package:e_qiu_guidance/Widgets/desktop_widgets/navbar.dart';
-import 'package:e_qiu_guidance/mycolors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:e_qiu_guidance/Controller/Staff_controllers/register_controller.dart';
@@ -16,16 +14,33 @@ class RegisterStudentDesktop extends StatefulWidget {
 class _RegisterStudentDesktopState extends State<RegisterStudentDesktop> {
   final GlobalKey<FormState> registerStudentKey = GlobalKey<FormState>();
 
+  late final Register controller;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!controllerInitialized) {
+      controller = Provider.of<Register>(context);
+      controllerInitialized = true;
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    controller.username = "";
+    controller.email = "";
+    controller.password = "";
+  }
+
+
+  bool controllerInitialized = false;
+
   @override
   Widget build(BuildContext context) {
     final controller = Provider.of<Register>(context);
 
     return Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: NavBar(),
-          backgroundColor: blue,
-        ),
         body: Container(
           decoration: const BoxDecoration(
           image: DecorationImage(
@@ -50,6 +65,11 @@ class _RegisterStudentDesktopState extends State<RegisterStudentDesktop> {
                         const SizedBox(
                           height: 30,
                         ),
+                         CustomTextField(
+                            hint: "Student Name",
+                            validator: controller.validateUserName,
+                            onChanged: (value) => controller.setUserName(value),
+                          ),
                         CustomTextField(
                           hint: "Email",
                           validator: controller.validateEmail,

@@ -1,10 +1,10 @@
+import 'package:e_qiu_guidance/View/desktop_view/view_events_desktop.dart';
 import 'package:e_qiu_guidance/mycolors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:e_qiu_guidance/Controller/fetch_controller.dart';
 import 'package:e_qiu_guidance/Controller/event_search_controller.dart';
 import 'package:e_qiu_guidance/Model/events.dart';
-import 'package:e_qiu_guidance/View/mobile_view/view_event.dart';
 import 'package:e_qiu_guidance/Widgets/mobile_widgets/search_field.dart';
 
 class EventsDesktop extends StatefulWidget {
@@ -33,12 +33,7 @@ class _EventsDesktopState extends State<EventsDesktop> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Events"),
-        centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 0, 106, 166),
-        foregroundColor: Colors.white,
-      ),
+      
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -92,7 +87,7 @@ class _EventsDesktopState extends State<EventsDesktop> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => ViewEvents(
+                                  builder: (context) => ViewEventsDesktop(
                                     id: event.id,
                                   ),
                                 ),
@@ -132,7 +127,7 @@ class _EventsDesktopState extends State<EventsDesktop> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => ViewEvents(
+                                        builder: (context) => ViewEventsDesktop(
                                           id: event.id,
                                         ),
                                       ),

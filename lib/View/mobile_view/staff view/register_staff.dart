@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:e_qiu_guidance/Controller/Staff_controllers/register_controller.dart';
 import 'package:e_qiu_guidance/Widgets/mobile_widgets/button.dart';
-import 'package:e_qiu_guidance/Widgets/mobile_widgets/drawer.dart';
 import 'package:e_qiu_guidance/Widgets/mobile_widgets/textfield.dart';
 
 class RegisterStaff extends StatefulWidget {
@@ -15,18 +14,32 @@ class RegisterStaff extends StatefulWidget {
 class _RegisterStaffState extends State<RegisterStaff> {
   final GlobalKey<FormState> registerStaffKey = GlobalKey<FormState>();
 
+  late final Register controller;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!controllerInitialized) {
+      controller = Provider.of<Register>(context);
+      controllerInitialized = true;
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    controller.username = "";
+    controller.email = "";
+    controller.password = "";
+  }
+
+  bool controllerInitialized = false;
+
   @override
   Widget build(BuildContext context) {
     final controller = Provider.of<Register>(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Register Staff"),
-        centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 0, 106, 166),
-        foregroundColor: Colors.white,
-      ),
-      drawer: const StaffDrawer(),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -38,7 +51,7 @@ class _RegisterStaffState extends State<RegisterStaff> {
               color: Colors.grey.withOpacity(0.9),
               child: Container(
                 margin:
-                    const EdgeInsets.symmetric(vertical: 180, horizontal: 40),
+                    const EdgeInsets.symmetric(vertical: 100, horizontal: 40),
                 padding: const EdgeInsets.all(10.0),
                 decoration: BoxDecoration(
                   color: Colors.white, // Adjust opacity as needed
@@ -78,6 +91,7 @@ class _RegisterStaffState extends State<RegisterStaff> {
                               onPressed: () {
                                 if (registerStaffKey.currentState?.validate() ??
                                     false) {
+                                  
                                   controller.registerStaff(context);
                                 }
                               },

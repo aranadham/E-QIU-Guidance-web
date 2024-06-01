@@ -1,9 +1,9 @@
+import 'package:e_qiu_guidance/View/desktop_view/view_speakers_desktop.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:e_qiu_guidance/Controller/fetch_controller.dart';
 import 'package:e_qiu_guidance/Controller/speaker_search_controller.dart';
 import 'package:e_qiu_guidance/Model/speaker.dart';
-import 'package:e_qiu_guidance/View/mobile_view/view_speaker.dart';
 import 'package:e_qiu_guidance/Widgets/mobile_widgets/search_field.dart';
 
 class SpeakersDesktop extends StatelessWidget {
@@ -15,12 +15,6 @@ class SpeakersDesktop extends StatelessWidget {
     final search = Provider.of<SpeakerSearchController>(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Speakers"),
-        centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 0, 106, 166),
-        foregroundColor: Colors.white,
-      ),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -70,7 +64,7 @@ class SpeakersDesktop extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      ViewSpeaker(id: speaker.id),
+                                      ViewSpeakerDesktop(id: speaker.id),
                                 ),
                               );
                             },
@@ -88,7 +82,7 @@ class SpeakersDesktop extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          ViewSpeaker(id: speaker.id),
+                                          ViewSpeakerDesktop(id: speaker.id),
                                     ),
                                   );
                                 },

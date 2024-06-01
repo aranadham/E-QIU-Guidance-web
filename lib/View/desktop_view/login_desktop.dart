@@ -4,7 +4,7 @@ import 'package:e_qiu_guidance/Widgets/desktop_widgets/textfield_desktop.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:e_qiu_guidance/Controller/login_controller.dart';
-import 'package:e_qiu_guidance/mycolors.dart';
+
 class LoginDesktop extends StatefulWidget {
   const LoginDesktop({super.key});
 
@@ -26,14 +26,6 @@ class _LoginDesktopState extends State<LoginDesktop> {
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "Login",
-          style: TextStyle(color: white),
-        ),
-        centerTitle: true,
-        backgroundColor: blue,
-      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -46,20 +38,26 @@ class _LoginDesktopState extends State<LoginDesktop> {
             SizedBox(
               height: screenHeight * 0.1,
             ),
-            CustomTextFieldDesktop(
-              hint: "Email",
-              onChanged: (value) => controller.setEmail(value),
-              onSubmitted: (value) async {
-                await controller.login(context: context);
-              },
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 170),
+              child: CustomTextFieldDesktop(
+                hint: "Email",
+                onChanged: (value) => controller.setEmail(value),
+                onSubmitted: (value) async {
+                  await controller.login(context: context);
+                },
+              ),
             ),
-            CustomTextFieldDesktop(
-              hint: "Password",
-              onChanged: (value) => controller.setPassword(value),
-              obscureText: true,
-              onSubmitted: (value) async {
-                await controller.login(context: context);
-              },
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 170),
+              child: CustomTextFieldDesktop(
+                hint: "Password",
+                onChanged: (value) => controller.setPassword(value),
+                obscureText: true,
+                onSubmitted: (value) async {
+                  await controller.login(context: context);
+                },
+              ),
             ),
             SizedBox(
               height: screenHeight * 0.05,
@@ -73,7 +71,7 @@ class _LoginDesktopState extends State<LoginDesktop> {
               isDisabled: false,
             ),
             SizedBox(
-              height: screenHeight * 0.05,
+              height: screenHeight * 0.020,
             ),
             OutlinedBtnDesktop(
               text: "Guest",

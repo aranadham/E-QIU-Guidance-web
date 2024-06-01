@@ -1,9 +1,9 @@
 import 'package:e_qiu_guidance/View/desktop_view/events_desktop.dart';
 import 'package:e_qiu_guidance/View/desktop_view/speakers_desktop.dart';
+import 'package:e_qiu_guidance/View/mobile_view/reserved_seats.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:e_qiu_guidance/Controller/logout_controller.dart';
-import 'package:e_qiu_guidance/Controller/seat_controller.dart';
 import 'package:e_qiu_guidance/View/mobile_view/view_calendar.dart';
 import 'package:e_qiu_guidance/View/mobile_view/view_map.dart';
 import 'package:e_qiu_guidance/Widgets/mobile_widgets/box.dart';
@@ -18,7 +18,6 @@ class HomePageDesktop extends StatefulWidget {
 class _HomePageDesktopState extends State<HomePageDesktop> {
   @override
   Widget build(BuildContext context) {
-    final controller = Provider.of<SeatController>(context);
     final logoutcontroller = Provider.of<LogoutController>(context);
 
     return Scaffold(
@@ -91,7 +90,12 @@ class _HomePageDesktopState extends State<HomePageDesktop> {
                     icon: Icons.chair,
                     text: "Seat",
                     ontap: () {
-                      controller.navigateToSeatDesktop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Seats(),
+                        ),
+                      );
                     },
                   ),
                   Box(

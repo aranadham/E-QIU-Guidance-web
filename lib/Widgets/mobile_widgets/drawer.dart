@@ -87,6 +87,20 @@ class StaffDrawer extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: ListTile(
+              leading: const Icon(Icons.people),
+              title: const Text(
+                'Attendance',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+              onTap: () {
+                Provider.of<StaffDrawerController>(context, listen: false)
+                    .setIndex(4, context);
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: ListTile(
               leading: const Icon(Icons.logout),
               title: const Text(
                 'Logout',
@@ -94,7 +108,7 @@ class StaffDrawer extends StatelessWidget {
               ),
               onTap: () {
                 Provider.of<StaffDrawerController>(context, listen: false)
-                    .setIndex(4, context);
+                    .setIndex(5, context);
               },
             ),
           ),

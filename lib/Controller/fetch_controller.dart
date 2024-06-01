@@ -8,10 +8,13 @@ import 'package:e_qiu_guidance/Model/events.dart';
 import 'package:e_qiu_guidance/Model/speaker.dart';
 
 class FetchController extends ChangeNotifier {
-  Stream<List<Event>> fetchEvents() {
-    User? user = FirebaseAuth.instance.currentUser;
 
-    if (user != null && user.isAnonymous) {
+    User? _user = FirebaseAuth.instance.currentUser;
+    get uid => _user!.uid;
+
+  Stream<List<Event>> fetchEvents() {
+
+    if (_user != null && _user!.isAnonymous) {
       return FirebaseFirestore.instance
           .collection("Events")
           .where('visibility', isEqualTo: 'Public')
@@ -67,8 +70,7 @@ class FetchController extends ChangeNotifier {
   }
 
   Stream<List<Event>> fetchRelatedEvents(String documentId) {
-    User? user = FirebaseAuth.instance.currentUser;
-    if (user != null && user.isAnonymous) {
+    if (_user != null && _user!.isAnonymous) {
       return FirebaseFirestore.instance
           .collection('Speakers')
           .doc(documentId)
@@ -199,9 +201,7 @@ class FetchController extends ChangeNotifier {
     );
   }
 
-  
-
-  Stream<List<Event>> fetchReservations(String userId) {
+  Stream<List<Event>> fetchReservations() {
     try {
       // Reference to the reservations collection
       CollectionReference reservationsCollection =
@@ -212,7 +212,7 @@ class FetchController extends ChangeNotifier {
           FirebaseFirestore.instance.collection('Events');
 
       return reservationsCollection
-          .doc(userId)
+          .doc(uid)
           .collection('reservations')
           .snapshots()
           .asyncMap((reservationsQuery) async {
@@ -263,6 +263,52 @@ class FetchController extends ChangeNotifier {
       debugPrint('Error retrieving reserved seat: $error');
       return 0; // Return an empty list or handle the error accordingly
     }
+  }
+
+  Stream<List<Event>> fetchEventsReserved() {
+    return FirebaseFirestore.instance
+        .collection("report")
+        .snapshots()
+        .asyncMap((snapshot) async {
+      List<String> reportIds = snapshot.docs.map((doc) => doc.id).toList();
+
+      List<Event> events = [];
+
+      for (String reportId in reportIds) {
+        DocumentSnapshot eventSnapshot = await FirebaseFirestore.instance
+            .collection("Events")
+            .doc(reportId)
+            .get();
+        if (eventSnapshot.exists) {
+          var eventData = eventSnapshot.data() as Map<String, dynamic>;
+          events.add(Event.fromMap(eventSnapshot.id, eventData));
+        }
+      }
+
+      return events;
+    });
+  }
+
+  Stream<List<String>> fetchReportNames(String reportId) {
+    return FirebaseFirestore.instance
+        .collection("report")
+        .doc(reportId)
+        .collection("reservations")
+        .snapshots()
+        .map((snapshot) {
+      return snapshot.docs
+          .map((doc) => (doc.data())["Name"] as String)
+          .toList();
+    });
+  }
+
+  Stream<int> fetchReservationCount(String reportId) {
+    return FirebaseFirestore.instance
+        .collection("report")
+        .doc(reportId)
+        .collection("reservations")
+        .snapshots()
+        .map((snapshot) => snapshot.docs.length);
   }
 
   String formatDateTime(Timestamp timestamp) {

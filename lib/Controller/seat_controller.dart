@@ -1,47 +1,13 @@
 // ignore_for_file: use_build_context_synchronously
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_qiu_guidance/Controller/notifi_service.dart';
-import 'package:e_qiu_guidance/View/desktop_view/reserved_seats_desktop.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:e_qiu_guidance/View/mobile_view/reserved_seats.dart';
 
 class SeatController extends ChangeNotifier {
   bool isReserved = false;
 
-  String userId = "";
-
-  void getuserId() {
-    User? user = FirebaseAuth.instance.currentUser;
-
-    if (user == null) {
-      return;
-    }
-
-    userId = user.uid;
-    notifyListeners();
-  }
-
-  void navigateToSeat(BuildContext context) {
-    getuserId();
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => Seats(userId: userId),
-      ),
-    );
-  }
-
-  void navigateToSeatDesktop(BuildContext context) {
-    getuserId();
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => SeatsDesktop(userId: userId),
-      ),
-    );
-  }
+  
 
   Future<bool> doesCollectionExists(String userId, String eventId) async {
     try {
@@ -86,6 +52,25 @@ class SeatController extends ChangeNotifier {
     }
   }
 
+  Future<void> report(String eventId, String userId, String name) async {
+    try {
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+      await firestore.collection('report').doc(eventId).set({});
+
+      await firestore
+          .collection('report')
+          .doc(eventId)
+          .collection('reservations')
+          .doc(userId)
+          .set({
+        "Name": name,
+      });
+    } catch (e) {
+      debugPrint('Error adding report and reservations: $e');
+    }
+  }
+
   Future<void> reserveSeat(BuildContext context, String eventId) async {
     try {
       if (isReserved) {
@@ -100,6 +85,12 @@ class SeatController extends ChangeNotifier {
       }
 
       String userId = user.uid;
+
+      if (user.isAnonymous) {
+        report(eventId, userId, "Guest");
+      } else {
+        report(eventId, userId, user.displayName!);
+      }
 
       // Fetch the current seat count from the 'Events' collection
       DocumentSnapshot eventSnapshot = await FirebaseFirestore.instance
@@ -151,7 +142,6 @@ class SeatController extends ChangeNotifier {
       );
 
       NotificationService().scheduleEventNotification(eventId);
-      
     } catch (error) {
       showDialog(
         context: context,

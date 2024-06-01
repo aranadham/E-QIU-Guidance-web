@@ -1,3 +1,5 @@
+import 'package:e_qiu_guidance/Controller/Staff_controllers/staff_nav_controller.dart';
+import 'package:e_qiu_guidance/Controller/bottom_nav_bar.dart';
 import 'package:e_qiu_guidance/Controller/notifi_service.dart';
 import 'package:e_qiu_guidance/responsive/responsive_layout.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +21,7 @@ import 'package:e_qiu_guidance/View/desktop_view/login_desktop.dart';
 import 'package:e_qiu_guidance/View/mobile_view/login.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   NotificationService().initNotification();
@@ -52,6 +55,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => LogoutController()),
         ChangeNotifierProvider(create: (_) => EventSearchController()),
         ChangeNotifierProvider(create: (_) => SpeakerSearchController()),
+        ChangeNotifierProvider(create: (_) => BottomNavBarController()),
+        ChangeNotifierProvider(create: (_) => StaffNavBarController()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

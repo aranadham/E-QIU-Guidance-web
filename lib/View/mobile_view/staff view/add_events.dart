@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:e_qiu_guidance/Controller/Staff_controllers/add_events_controller.dart';
 import 'package:e_qiu_guidance/Widgets/mobile_widgets/button.dart';
-import 'package:e_qiu_guidance/Widgets/mobile_widgets/drawer.dart';
 import 'package:e_qiu_guidance/Widgets/mobile_widgets/outlined_button.dart';
 import 'package:e_qiu_guidance/Widgets/mobile_widgets/textfield.dart';
 
@@ -27,13 +26,6 @@ class _AddEventsState extends State<AddEvents> {
   Widget build(BuildContext context) {
     final controller = Provider.of<AddEventController>(context);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Add Events"),
-        centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 0, 106, 166),
-        foregroundColor: Colors.white,
-      ),
-      drawer: const StaffDrawer(),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(

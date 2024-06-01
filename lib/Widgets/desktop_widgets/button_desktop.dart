@@ -22,7 +22,7 @@ class BtnDesktop extends StatelessWidget {
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(blue),
         foregroundColor: MaterialStateProperty.all(Colors.white),
-        minimumSize: MaterialStateProperty.all(const Size(400, 40)),
+        minimumSize: MaterialStateProperty.all(const Size(300, 40)),
         padding: MaterialStateProperty.all(const EdgeInsets.all(10)),
       ),
       child: Text(
